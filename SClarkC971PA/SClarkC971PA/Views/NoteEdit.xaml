@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.NoteEdit"
+             Title="NoteEdit">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *, Auto, Auto" Padding="10" VerticalOptions="Center">
+            <Label Text="Add/Edit Notes"
+               x:Name="AddEditNotesTitle"
+               FontSize="Title"
+               TextColor="Black"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Column="1"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <Grid RowDefinitions="Auto, *, Auto, Auto, Auto">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*,*">
+            <Label Grid.Column="0" Text="Title:" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Entry x:Name="NoteTitleEntry" Grid.Column="1" FontSize="Medium" HorizontalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+            <Button x:Name="ShareNoteBtn" Clicked="ShareNoteBtn_Clicked" Grid.Column="2" FontSize="Medium" HorizontalOptions="Fill" Background="#78BE43" Text="Share"/>
+        </Grid>
+        <Editor x:Name="NoteBodyEditor" Grid.Row="1" Placeholder="Enter note text here..." FontSize="Medium" HorizontalOptions="Fill" VerticalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+        <Label x:Name="NoteErrorLbl" Grid.Row="2" FontSize="Medium" TextColor="Red" IsVisible="False"  Text="Note Error Label"/>
+        <Button x:Name="DeleteNoteBtn" Clicked="DeleteNoteBtn_Clicked" Grid.Row="3" FontSize="Medium" BackgroundColor="Red" IsVisible="False" Text="Delete Note"/>
+        <Grid Grid.Row="4" ColumnDefinitions="*, *">
+            <Button Clicked="CancelNoteBtn_Clicked" Grid.Column="0" x:Name="CancelNoteBtn" Text="Cancel" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black"/>
+            <Button Clicked="SaveNoteBtn_Clicked" Grid.Column="1" x:Name="SaveNoteBtn" Text="Save"  HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="#46B1EF" TextColor="Black"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>

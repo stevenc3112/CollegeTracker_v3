@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.CourseEdit"
+             Title="Course Edit">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *, Auto" Padding="10" VerticalOptions="Center">
+            <Label Text="Edit/Add Course"
+               x:Name="EditAddCourseTitle"
+               FontSize="Title"
+               TextColor="Black"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Column="1"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+        <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto" Grid.Row="0">
+            <Button x:Name="EditCourseBtn" Clicked="EditCourseBtn_Clicked" Text="Edit Course" Grid.Column="0" Grid.Row="0" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black" IsVisible="False"/>
+            <Button x:Name="DeleteCourseBtn" Clicked="DeleteCourseBtn_Clicked" Text="Delete Course" Grid.Column="0" Grid.Row="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="Red" TextColor="Black" IsVisible="False"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,10,*" RowDefinitions="*,*,*,*,*" HorizontalOptions="Fill" VerticalOptions="Fill" Grid.Row="1">
+
+            <Label Text="Name:" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Entry x:Name="CourseNameEntry" Grid.Column="2" Grid.Row =" 0" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" IsEnabled="False"/>
+
+            <Label Text="Start date:" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <DatePicker x:Name="CourseStartDpkr" Grid.Column="2" Grid.Row ="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" IsEnabled="False"/>
+
+            <Label Text="End date:" Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <DatePicker x:Name="CourseEndDpkr" Grid.Column="2" Grid.Row ="2" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" IsEnabled="False"/>
+
+
+            <Label Text="Status:" Grid.Column="0" Grid.Row="3" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Picker x:Name="CourseStatusPkr" Grid.Column="2" Grid.Row ="3" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" IsEnabled="False">
+                <Picker.Items>
+                    <x:String>Started</x:String>
+                    <x:String>Complete</x:String>
+                    <x:String>Not Started</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Notify start and end date:" Grid.Column="0" Grid.Row="4" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Switch x:Name="NotifyStartEndSwitch" Grid.Column="2" Grid.Row ="4" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="False"/>
+        </Grid>
+
+        <Button x:Name="CourseInstructorBtn" Clicked="CourseInstructorBtn_Clicked" Text="Edit Instructor Info" Grid.Row="2" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black" IsVisible="False"/>
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" Grid.Row="3" x:Name="InstructorInfoGrid" ColumnDefinitions="*"  HorizontalOptions="Fill">
+                <Label Text="Instructor Information" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+                
+                <Label Text="Instructor info will display here" x:Name="InstructorNameLbl" Grid.Column="0" Grid.Row ="1" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+                <Label Text="Instructor Phone" x:Name="InstructorPhoneLbl" Grid.Column="0" Grid.Row ="2" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center" IsVisible="False"/>
+                <Label Text="Instructor Email" x:Name="InstructorEmailLbl" Grid.Column="0" Grid.Row ="3" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center" IsVisible="False"/>
+
+        </Grid>
+        <Button x:Name="CourseAssessmentsBtn" Grid.Row="4" Clicked="CourseAssessmentsBtn_Clicked" Text="Add Assessment"  HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black" IsVisible="False"/>
+
+        <Border x:Name="AssessmentCollectionViewBorder" StrokeShape="RoundRectangle 10"
+                    Padding="10"
+                    BackgroundColor="WhiteSmoke" Grid.Row="5">
+
+            <CollectionView x:Name="AssessmentCollectionView"
+                                ItemsSource="{Binding Assessment}"
+                                EmptyView="No assessments to display."
+                                SelectionMode="Single"
+                                SelectionChanged="AssessmentCollectionView_SelectionChanged">
+                
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <!--Define the appearance of each item in the list-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#46B1EF"
+                                    Padding="10">
+
+                            <StackLayout>
+                                <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="#46B1EF" RowDefinitions="25,25,25" ColumnDefinitions="*, Auto, *">
+
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding AssessmentName}" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding AssessmentStartDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="1" Text="-" FontSize="Medium"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding AssessmentEndDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+                                </Grid>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Border>
+        <Button x:Name="CourseNotesBtn" Grid.Row="6" Clicked="CourseNotesBtn_Clicked" Text="Notes" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black" IsVisible="False"/>
+        <Label x:Name="CourseErrorLbl" FontSize="Medium" TextColor="Red" IsVisible="False" Grid.Row="7" Text="Course Error Label"/>
+        <Grid ColumnDefinitions="*,10,*" RowDefinitions="*" HorizontalOptions="Fill" VerticalOptions="Fill" Grid.Row="8">
+            <Button x:Name="CancelBtn" Clicked="CancelBtn_Clicked" Text="Cancel" Grid.Column="0" Grid.Row="6" HorizontalOptions="Fill" FontSize="Medium" TextColor ="Black" VerticalOptions="Center" BackgroundColor="WhiteSmoke" IsVisible="False"/>
+            <Button x:Name="SaveCourseBtn" Clicked="SaveCourseBtn_Clicked" Text="Save" Grid.Column="2" Grid.Row="6" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="#46B1EF" IsVisible="False"/>
+        </Grid>
+    </Grid>
+</ContentPage>

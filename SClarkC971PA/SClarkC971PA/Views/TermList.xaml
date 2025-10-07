@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.TermList"
+             Title="WGU Terms">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *, Auto" Padding="10" VerticalOptions="Center">
+
+            <Label Text="WGU Terms"
+               FontSize="Title"
+               TextColor="Black"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Column="1"/>
+ 
+        </Grid>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, *" Padding="10">
+            <Button x:Name="AddTermBtn"
+                    Text="Add Term"
+                    FontSize="Medium"
+                    Padding="20"
+                    Clicked="AddTermBtn_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#78BE43"
+                    BorderColor="#C8C8C8"
+                    TextColor="Black"
+                    BorderWidth="1"
+                    Grid.Row="0"/>
+            <Border StrokeShape="RoundRectangle 10"
+                    Padding="10"
+                    BackgroundColor="WhiteSmoke"
+                    Grid.Row="1">
+
+
+                <CollectionView x:Name="TermCollectionView"
+                                ItemsSource="{Binding Term}"
+                                EmptyView="No Terms to display."
+                                SelectionMode="Single"
+                                SelectionChanged="TermCollectionView_SelectionChanged"
+                                Grid.Row="1">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                    </CollectionView.ItemsLayout>
+
+
+                    <!--Define the appearance of each item in the list-->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border StrokeShape="RoundRectangle 10"
+                                    BackgroundColor="#46B1EF"
+                                    Padding="10">
+
+                                <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="#46B1EF">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="50"/>
+
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding TermStartDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Small"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="#46B1EF"/>
+                                    <Label Grid.Row="0" Grid.Column="2" Text="-" FontSize="Medium"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="#46B1EF"/>
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding TermEndDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Small"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center" BackgroundColor="#46B1EF"/>
+
+                                    <Label Grid.Row="1" Grid.Column="2" Text="{Binding TermTitle}" FontSize="Large" VerticalTextAlignment="Center" FontAttributes="Bold" BackgroundColor="#46B1EF"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

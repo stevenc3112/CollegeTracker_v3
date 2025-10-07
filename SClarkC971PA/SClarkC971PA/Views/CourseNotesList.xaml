@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.CourseNotesList"
+             Title="CourseNotesList">
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="Auto, *, Auto" Padding="10" VerticalOptions="Center">
+            <Label Text="Course Notes"
+               x:Name="CourseNotesTitle"
+               FontSize="Title"
+               TextColor="Black"
+               FontAttributes="Bold"
+               VerticalOptions="Center"
+               HorizontalOptions="Center"
+               Grid.Column="1"/>
+        </Grid>
+    </NavigationPage.TitleView>
+    <Grid RowDefinitions="*,Auto">
+        <Border StrokeShape="RoundRectangle 10"
+             Padding="10"
+             BackgroundColor="WhiteSmoke" Grid.Row="0">
+
+
+            <CollectionView x:Name="NoteCollectionView"
+                         ItemsSource="{Binding Note}"
+                         EmptyView="No notes to display."
+                         SelectionMode="Single"
+                         SelectionChanged="NoteCollectionView_SelectionChanged">
+
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <!--Define the appearance of each item in the list-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 10"
+                             BackgroundColor="#46B1EF"
+                             Padding="10">
+
+                            <StackLayout>
+                                <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="#46B1EF" RowDefinitions="25,*">
+
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding NoteTitle}" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding NoteBody}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+                                </Grid>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+        </Border>
+        <Button x:Name="AddNoteBtn" Grid.Row="1" Text="Add Note" Clicked="AddNoteBtn_Clicked" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black"/>
+    </Grid>
+    
+    
+</ContentPage>

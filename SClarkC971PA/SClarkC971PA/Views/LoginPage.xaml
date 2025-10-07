@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.LoginPage"
+             Title="Sign up">
+    <VerticalStackLayout>
+        <Label 
+            Text="Set up your username and password"
+            x:Name="InstructionLbl"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center"
+            FontSize="Medium"/>
+        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" Padding="10">
+            <Label Text="Username:" Grid.Row="0" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Entry x:Name="UsernameEntry"
+                   FontSize="Medium"
+                   HorizontalOptions="Fill"
+                   BackgroundColor="WhiteSmoke"
+                   TextColor="Black"
+                   Grid.Row="1"/>
+            <Label Text="Password:" Grid.Row="2" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Entry x:Name="PasswordEntry"
+                   FontSize="Medium"
+                   HorizontalOptions="Fill"
+                   BackgroundColor="WhiteSmoke"
+                   TextColor="Black"
+                   Grid.Row="3"/>
+            <Button x:Name="SignInBtn"
+                    Text="Sign up"
+                    FontSize="Medium"
+                    Padding="20"
+                    Clicked="SignInBtn_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#78BE43"
+                    BorderColor="#C8C8C8"
+                    TextColor="Black"
+                    BorderWidth="1"
+                    Grid.Row="4"/>
+            <Label x:Name="ErrorLbl" Grid.Row="5" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

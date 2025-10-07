@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.InstructorEdit">
+    <NavigationPage.TitleView>
+
+        <Label Text="Edit/Add Instructor"
+                x:Name="EditAddInstructorTitle"
+                FontSize="Title"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Grid.Column="1"/>
+
+    </NavigationPage.TitleView>
+    <Grid RowDefinitions="*, Auto">
+
+        <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,50, *" VerticalOptions="Fill" HorizontalOptions="Fill" Grid.Row="0">
+            <Label Text="Name:" Grid.Row="0" Grid.Column="0" Padding="5" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Entry x:Name="InstructorNameEntry" Grid.Row="0" Grid.Column="2" FontSize="Medium" VerticalOptions="Fill"  BackgroundColor="WhiteSmoke" HorizontalOptions="Fill"/>
+
+            <Label Text="Phone Number:" Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <Entry x:Name="InstructorPhoneEntry" Grid.Row="1" Grid.Column="2" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+
+            <Label Text="Email:" Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <Entry x:Name="InstructorEmailEntry" Grid.Row="2" Grid.Column="2" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+        </Grid>
+
+        <Grid RowDefinitions="Auto, Auto" Grid.Row="1">
+            <Button x:Name="SaveInstructorBtn" Text="Save"
+                Grid.Row="0"
+                FontSize="Medium"
+                Padding="20"
+                Clicked="SaveInstructorBtn_Clicked"   
+                HorizontalOptions="Fill"
+                BackgroundColor="#46B1EF"
+                BorderColor="#C8C8C8"
+                TextColor="Black"
+                BorderWidth="1"/>
+            <Button x:Name="DeleteAllBtn" Text="Delete Instructor"
+                Grid.Row="1"
+                FontSize="Medium"
+                Padding="20"
+                Clicked="DeleteAllBtn_Clicked"
+                HorizontalOptions="Fill"
+                BackgroundColor="Red"
+                BorderColor="#C8C8C8"
+                TextColor="Black"
+                BorderWidth="1"/>
+        </Grid>
+    </Grid>
+</ContentPage>

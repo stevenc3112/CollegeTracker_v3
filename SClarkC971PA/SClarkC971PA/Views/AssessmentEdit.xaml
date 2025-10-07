@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.AssessmentEdit">
+    <NavigationPage.TitleView>
+
+        <Label Text="Edit/Add Assessment"
+                x:Name="EditAddAssessmentTitle"
+                FontSize="Title"
+                FontAttributes="Bold"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Grid.Column="1"/>
+
+    </NavigationPage.TitleView>
+    <Grid RowDefinitions="*, Auto, Auto">
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,50, *" VerticalOptions="Fill" HorizontalOptions="CenterAndExpand" Grid.Row="0">
+            <Label Text="Name:" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Entry x:Name="AssessmentNameEntry" Grid.Row="0" Grid.Column="2" FontSize="Medium" VerticalOptions="Fill"  BackgroundColor="WhiteSmoke" HorizontalOptions="Fill"/>
+
+            <Label Text="Assessment Type:" Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <Picker x:Name="AssessmentTypePkr" Grid.Column="2" Grid.Row ="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center">
+                <Picker.Items>
+                    <x:String>Objective</x:String>
+                    <x:String>Performance</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Start Date" Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <DatePicker x:Name="AssessmentStartDateDpkr" Grid.Row="2" Grid.Column="2" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+
+            <Label Text="End Date" Grid.Row="3" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <DatePicker x:Name="AssessmentEndDateDpkr" Grid.Row="3" Grid.Column="2" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Fill" BackgroundColor="WhiteSmoke"/>
+
+            <Label Text="Notify start and end date:" Grid.Row="4" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+            <Switch x:Name="NotifyAssessmentSwitch" Grid.Row="4" Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Fill"/>
+        </Grid>
+        
+        <Label x:Name="AssessmentErrorLbl" Text ="Assessment error" Grid.Row="1" FontSize="Medium" TextColor="Red" IsVisible="False"/>
+        
+        <Grid RowDefinitions="Auto, Auto" Grid.Row="2">
+            <Button x:Name="SaveAssessmentBtn" Text="Save Assessment"
+                    Clicked="SaveAssessmentBtn_Clicked"
+                    Grid.Row="0"
+                    FontSize="Medium"
+                    Padding="20"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#46B1EF"
+                    BorderColor="#C8C8C8"
+                    TextColor="Black"
+                    BorderWidth="1"/>
+            <Button x:Name="DeleteAssessmentBtn" 
+                    Clicked="DeleteAssessmentBtn_Clicked"
+                    Text="Delete Assessment"
+                    Grid.Row="1"
+                    FontSize="Medium"
+                    Padding="20"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Red"
+                    BorderColor="#C8C8C8"
+                    TextColor="Black"
+                    BorderWidth="1"
+                    IsVisible="False"/>
+        </Grid>
+    </Grid>
+</ContentPage>
