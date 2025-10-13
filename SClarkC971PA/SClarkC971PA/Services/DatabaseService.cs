@@ -247,7 +247,7 @@ namespace SClarkC971PA.Services
         //Add assessment to course
         public static async Task AddAssessment(Assessment assessment)
         {
-            if (assessment.GetType() == typeof(Performance))
+            if (assessment is Performance performanceAssessment)
             {
                 Performance performance = new Performance();
                 performance = (Performance)assessment;
@@ -300,7 +300,7 @@ namespace SClarkC971PA.Services
                 .FirstOrDefaultAsync();
 
                 //Update and execute the query
-                if (assessmentQuery != null)
+                if (assessmentQuery is not null)
                 {
                     assessmentQuery.AssociatedCourseId = performance.AssociatedCourseId;
                     assessmentQuery.AssessmentId = performance.AssessmentId;
@@ -308,6 +308,7 @@ namespace SClarkC971PA.Services
                     assessmentQuery.AssessmentStartDate = performance.AssessmentStartDate;
                     assessmentQuery.AssessmentEndDate = performance.AssessmentEndDate;
                     assessmentQuery.PAssessmentFeedback = performance.PAssessmentFeedback;
+                    assessmentQuery.AssessmentStatus = performance.AssessmentStatus;
                     assessmentQuery.AssessmentNotify = performance.AssessmentNotify;
 
                     await _db.UpdateAsync(assessmentQuery);
@@ -317,18 +318,19 @@ namespace SClarkC971PA.Services
             else if (assessment.GetType() == typeof(Objective))
             {
                 Objective objective = new Objective();
-                objective = (Objective)objective;
+                objective = (Objective)assessment;
 
                 var assessmentQuery = await _db.Table<Objective>()
                 .Where(i => i.AssessmentId == objective.AssessmentId)
                 .FirstOrDefaultAsync();
-                if (assessmentQuery != null)
+                if (assessmentQuery is not null)
                 {
                     assessmentQuery.AssociatedCourseId = objective.AssociatedCourseId;
                     assessmentQuery.AssessmentId = objective.AssessmentId;
                     assessmentQuery.AssessmentName = objective.AssessmentName;
                     assessmentQuery.AssessmentStartDate = objective.AssessmentStartDate;
                     assessmentQuery.AssessmentEndDate = objective.AssessmentEndDate;
+                    assessmentQuery.AssessmentStatus = objective.AssessmentStatus;
                     assessmentQuery.OAssessmentScore = objective.OAssessmentScore;
                     assessmentQuery.AssessmentNotify = objective.AssessmentNotify;
 
@@ -377,10 +379,18 @@ namespace SClarkC971PA.Services
                 return true;
             }
         }
-        public static async Task RemoveAssessment(int id)
+        public static async Task RemoveAssessment(int id, string assessmentType)
         {
             await Init();
-            await _db.DeleteAsync<Assessment>(id);
+            if (assessmentType == "Performance")
+            {
+                await _db.DeleteAsync<Performance>(id);
+            }
+            else if (assessmentType == "Objective")
+            {
+                await _db.DeleteAsync<Objective>(id);
+            }
+
         }
         #endregion
 
