@@ -9,10 +9,10 @@ namespace SClarkC971PA.Views;
 
 public partial class TermList : ContentPage
 {
-    private int _currentUser;
+    private int _currentUserId;
     public TermList(int userId)
 	{
-        _currentUser = userId;
+        _currentUserId = userId;
 		InitializeComponent();
     }
     protected override async void OnAppearing()
@@ -32,7 +32,7 @@ public partial class TermList : ContentPage
     }
     private async Task RefreshTermCollectionView()
     {
-        TermCollectionView.ItemsSource = await DatabaseService.GetTerms(_currentUser);
+        TermCollectionView.ItemsSource = await DatabaseService.GetTerms(_currentUserId);
     }
     private async void TermCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -45,7 +45,7 @@ public partial class TermList : ContentPage
 
     private async void AddTermBtn_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new TermEdit());
+        await Navigation.PushAsync(new TermEdit(_currentUserId));
     }
     //Notification Id creator that uses hashes and other numbers to avoid notificationid collisions.
     private static int CreateNotifyId(params int[] parts)

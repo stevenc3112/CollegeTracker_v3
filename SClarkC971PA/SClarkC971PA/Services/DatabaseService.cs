@@ -26,10 +26,13 @@ namespace SClarkC971PA.Services
             await _db.CreateTableAsync<Term>();
             await _db.CreateTableAsync<Course>();
             await _db.CreateTableAsync<Instructor>();
-            await _db.CreateTableAsync<Assessment>();
+            await _db.CreateTableAsync<Objective>();
+            await _db.CreateTableAsync<Performance>();
             await _db.CreateTableAsync<Note>();
             await _db.CreateTableAsync<User>();
         }
+
+
         #region User Methods
         //Get list of users
         public static async Task<IEnumerable<User>> GetUsers()
@@ -38,19 +41,70 @@ namespace SClarkC971PA.Services
             var users = await _db.Table<User>().ToListAsync();
             return users;
         }
+        
+        //Add user
+        public static async Task<int> AddUser(string username, string password)
+        {
+            await Init();
+            var user = new User()
+            {
+                UserUsername = username,
+                UserPassword = password
+            };
+            await _db.InsertAsync(user);
+            var id = user.UserId;
+            return id;
+        }
+        //Authenticate user and return UserId
+        public static async Task<int> AuthenticateUser(string username, string password)
+        {
+            var lookedUpUserId = 0;
+            await Init();
+            var user = await _db.Table<User>()
+                .Where(i => i.UserUsername == username && i.UserPassword == password)
+                .FirstOrDefaultAsync();
+            if (user == null) {
+                return 0;
+            }
+            return user.UserId;
+        }
+
+        //TODO: Delete the Clear User Table functionality
+        //public static async Task ClearUserTable()
+        public static async Task ClearAllTables()
+        {
+            await Init();
+            //var clearTableCmd = "DELETE FROM User";
+            //await _db.ExecuteAsync(clearTableCmd);
+
+            //await _db.DeleteAllAsync<User>();
+            await _db.DeleteAllAsync<Term>();
+            await _db.DeleteAllAsync<Course>();
+            await _db.DeleteAllAsync<Instructor>();
+            await _db.DeleteAllAsync<Assessment>();
+            await _db.DeleteAllAsync<Note>();
+            await _db.DeleteAllAsync<User>();
+        }
+        //TODO: Delete "Get user count" functionality
+        public static async Task<int> GetUserCount()
+        {
+            await Init();
+            int userCount = await _db.ExecuteScalarAsync<int>("Select Count(*) from User");
+            return userCount;
+        }
         #endregion
 
         #region Term Methods
         //Add term
-        public static async Task AddTerm(string termTitle, DateTime termStartDate, DateTime termEndDate)
+        public static async Task AddTerm(string termTitle, DateTime termStartDate, DateTime termEndDate, int currentUserId)
         {
             await Init();
             var term = new Term()
             {
                 TermTitle = termTitle,
                 TermStartDate = termStartDate,
-                TermEndDate = termEndDate
-
+                TermEndDate = termEndDate,
+                AssociatedUserId = currentUserId
             };
             await _db.InsertAsync(term);
             var id = term.TermId;
@@ -193,56 +247,134 @@ namespace SClarkC971PA.Services
         //Add assessment to course
         public static async Task AddAssessment(Assessment assessment)
         {
-            await Init();
-            await _db.InsertAsync(assessment);
-            var id = assessment.AssessmentId;
+            if (assessment.GetType() == typeof(Performance))
+            {
+                Performance performance = new Performance();
+                performance = (Performance)assessment;
+                await Init();
+                await _db.InsertAsync(performance);
+                var id = assessment.AssessmentId;
+            }
+            else if (assessment.GetType() == typeof(Objective))
+            {
+                Objective objective = new Objective();
+                objective = (Objective)assessment;
+                await Init();
+                await _db.InsertAsync(objective);
+                var id = objective.AssessmentId;
+            }
         }
 
-        public static async Task<IEnumerable<Assessment>> GetAssessments(int associatedCourseId)
+        public static async Task<IEnumerable<Object>> GetAssessments(int associatedCourseId)
         {
             await Init();
-            var assessments = await _db.Table<Assessment>().Where(i => i.AssociatedCourseId == associatedCourseId).ToListAsync();
+            //Lookup each assessment for the associated course
+            var performanceAssessments = await _db.Table<Performance>().Where(i => i.AssociatedCourseId == associatedCourseId).ToListAsync();
+            var objectiveAssessments = await _db.Table<Objective>().Where(i => i.AssociatedCourseId == associatedCourseId).ToListAsync();
+
+            List<Object> assessments = new List<Object>();
+            assessments.AddRange(performanceAssessments);
+            assessments.AddRange(objectiveAssessments);
             return assessments;
         }
-        public static async Task<IEnumerable<Assessment>> GetAssessments()
+        public static async Task<IEnumerable<Object>> GetAssessments()
         {
             await Init();
-            var assessments = await _db.Table<Assessment>().ToListAsync();
+            List<Object> assessments = new List<Object>();
+            var performanceAssessments = await _db.Table<Performance>().ToListAsync();
+            var objectiveAssessments = await _db.Table<Objective>().ToListAsync();
+            assessments.AddRange(performanceAssessments);
+            assessments.AddRange(objectiveAssessments);
             return assessments;
         }
         public static async Task UpdateAssessment(Assessment assessment)
         {
             await Init();
-            var assessmentQuery = await _db.Table<Assessment>()
-                .Where(i => i.AssessmentId == assessment.AssessmentId)
-                .FirstOrDefaultAsync();
-            if (assessmentQuery != null)
+            if (assessment.GetType() == typeof(Performance))
             {
-                assessmentQuery.AssociatedCourseId = assessment.AssociatedCourseId;
-                assessmentQuery.AssessmentId = assessment.AssessmentId;
-                assessmentQuery.AssessmentName = assessment.AssessmentName;
-                assessmentQuery.AssessmentStartDate = assessment.AssessmentStartDate;
-                assessmentQuery.AssessmentEndDate = assessment.AssessmentEndDate;
-                assessmentQuery.AssessmentType = assessment.AssessmentType;
-                assessmentQuery.AssessmentNotify = assessment.AssessmentNotify;
+                Performance performance = new Performance();
+                performance = (Performance)assessment;
 
-                await _db.UpdateAsync(assessmentQuery);
+                var assessmentQuery = await _db.Table<Performance>()
+                .Where(i => i.AssessmentId == performance.AssessmentId)
+                .FirstOrDefaultAsync();
 
+                //Update and execute the query
+                if (assessmentQuery != null)
+                {
+                    assessmentQuery.AssociatedCourseId = performance.AssociatedCourseId;
+                    assessmentQuery.AssessmentId = performance.AssessmentId;
+                    assessmentQuery.AssessmentName = performance.AssessmentName;
+                    assessmentQuery.AssessmentStartDate = performance.AssessmentStartDate;
+                    assessmentQuery.AssessmentEndDate = performance.AssessmentEndDate;
+                    assessmentQuery.PAssessmentFeedback = performance.PAssessmentFeedback;
+                    assessmentQuery.AssessmentNotify = performance.AssessmentNotify;
+
+                    await _db.UpdateAsync(assessmentQuery);
+
+                }
             }
+            else if (assessment.GetType() == typeof(Objective))
+            {
+                Objective objective = new Objective();
+                objective = (Objective)objective;
+
+                var assessmentQuery = await _db.Table<Objective>()
+                .Where(i => i.AssessmentId == objective.AssessmentId)
+                .FirstOrDefaultAsync();
+                if (assessmentQuery != null)
+                {
+                    assessmentQuery.AssociatedCourseId = objective.AssociatedCourseId;
+                    assessmentQuery.AssessmentId = objective.AssessmentId;
+                    assessmentQuery.AssessmentName = objective.AssessmentName;
+                    assessmentQuery.AssessmentStartDate = objective.AssessmentStartDate;
+                    assessmentQuery.AssessmentEndDate = objective.AssessmentEndDate;
+                    assessmentQuery.OAssessmentScore = objective.OAssessmentScore;
+                    assessmentQuery.AssessmentNotify = objective.AssessmentNotify;
+
+                    await _db.UpdateAsync(assessmentQuery);
+
+                }
+            }
+
         }
         public static async Task<bool> VerifyAssessmentCountMet(int assessmentId, int associatedCourseId, string assessmentType)
         {
-            await Init();
-            var assessmentCountQuery = await _db.Table<Assessment>()
-                .Where(i => i.AssociatedCourseId == associatedCourseId && i.AssessmentType == assessmentType && i.AssessmentId != assessmentId)
-                .FirstOrDefaultAsync();
-            if (assessmentCountQuery != null)
+            if (assessmentType == "Performance")
             {
-                return true;
+                await Init();
+                var assessmentCountQuery = await _db.Table<Performance>()
+                .Where(i => i.AssociatedCourseId == associatedCourseId && i.AssessmentId != assessmentId)
+                .FirstOrDefaultAsync();
+
+                if (assessmentCountQuery != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            else if (assessmentType == "Objective")
+            {
+                await Init();
+                var assessmentCountQuery = await _db.Table<Objective>()
+                .Where(i => i.AssociatedCourseId == associatedCourseId && i.AssessmentId != assessmentId)
+                .FirstOrDefaultAsync();
+
+                if (assessmentCountQuery != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }//Return true by default (limit met)
             else
             {
-                return false;
+                return true;
             }
         }
         public static async Task RemoveAssessment(int id)
@@ -321,27 +453,27 @@ namespace SClarkC971PA.Services
             };
             await _db.InsertAsync(course);
 
-            Assessment assessment = new Assessment()
+            Performance performance = new Performance()
             {
                 AssociatedCourseId = course.CourseId,
                 AssessmentName = "Networking PA",
-                AssessmentType = "Performance",
+                PAssessmentFeedback = "You did great!",
                 AssessmentStartDate= DateTime.Today.Date,
                 AssessmentEndDate= DateTime.Today.Date.AddDays(1),
                 AssessmentNotify = true
             };
-            await _db.InsertAsync(assessment);
+            await _db.InsertAsync(performance);
 
-            Assessment assessment2 = new Assessment()
+            Objective objective = new Objective()
             {
                 AssociatedCourseId = course.CourseId,
                 AssessmentName = "Networking OA",
-                AssessmentType = "Objective",
+                OAssessmentScore = 100,
                 AssessmentStartDate = DateTime.Today.Date,
                 AssessmentEndDate = DateTime.Today.Date.AddDays(1),
                 AssessmentNotify = true
             };
-            await _db.InsertAsync(assessment2);
+            await _db.InsertAsync(performance);
 
             Instructor instructor = new Instructor()
             {

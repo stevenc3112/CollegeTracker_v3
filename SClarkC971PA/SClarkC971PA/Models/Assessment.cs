@@ -7,15 +7,16 @@ using SQLite;
 
 namespace SClarkC971PA.Models
 {
-    public class Assessment
+    public abstract class Assessment
     {
         [PrimaryKey, AutoIncrement]
         public int AssessmentId { get; set; }
         public int AssociatedCourseId { get; set; }
         public string AssessmentName { get; set; }
-        public string AssessmentType { get; set; }
+        //TODO: delete this: public string AssessmentType { get; set; }
         public DateTime AssessmentStartDate { get; set; }
         public DateTime AssessmentEndDate { get; set; }
         public bool AssessmentNotify { get; set; }
+        public string AssessmentStatus { get; set; }
     }
 }

@@ -6,7 +6,8 @@ namespace SClarkC971PA.Views;
 public partial class AssessmentEdit : ContentPage
 {
     private int _associatedCourseId = 0;
-    private Assessment _assessment = new Assessment();
+    private Objective _objectiveAssessment = new Objective();
+    private Performance _performanceAssessment = new Performance();
     private bool _isEditing = false;
     private bool _assessmentCountExceeded = false;
 	public AssessmentEdit(int courseId)
@@ -19,14 +20,30 @@ public partial class AssessmentEdit : ContentPage
     {
         InitializeComponent();
         _associatedCourseId = courseId;
-        _assessment = assessment;
         _isEditing = true;
 
-        AssessmentNameEntry.Text = _assessment.AssessmentName;
-        AssessmentTypePkr.SelectedItem = _assessment.AssessmentType;
-        AssessmentStartDateDpkr.Date = _assessment.AssessmentStartDate;
-        AssessmentEndDateDpkr.Date = _assessment.AssessmentEndDate;
-        NotifyAssessmentSwitch.IsToggled = _assessment.AssessmentNotify;
+        if (assessment.GetType() == typeof(Performance)) 
+        { 
+            _performanceAssessment = (Performance) assessment;
+
+            AssessmentNameEntry.Text = _performanceAssessment.AssessmentName;
+            AssessmentTypePkr.SelectedItem = "Performance";
+            AssessmentStartDateDpkr.Date = _performanceAssessment.AssessmentStartDate;
+            AssessmentEndDateDpkr.Date = _performanceAssessment.AssessmentEndDate;
+            NotifyAssessmentSwitch.IsToggled = _performanceAssessment.AssessmentNotify;
+        }
+        else if (assessment.GetType() == typeof(Objective))
+        {
+            _objectiveAssessment = (Objective)assessment;
+
+            AssessmentNameEntry.Text = _objectiveAssessment.AssessmentName;
+            AssessmentTypePkr.SelectedItem = "Objective";
+            AssessmentStartDateDpkr.Date = _objectiveAssessment.AssessmentStartDate;
+            AssessmentEndDateDpkr.Date = _objectiveAssessment.AssessmentEndDate;
+            NotifyAssessmentSwitch.IsToggled = _objectiveAssessment.AssessmentNotify;
+        }
+
+
 
         DeleteAssessmentBtn.IsVisible = true;
         
@@ -39,7 +56,6 @@ public partial class AssessmentEdit : ContentPage
         { 
             await DatabaseService.RemoveAssessment(_assessment.AssessmentId);
             await Navigation.PopAsync();
-            
         }
     }
     private async void SaveAssessmentBtn_Clicked(object sender, EventArgs e)

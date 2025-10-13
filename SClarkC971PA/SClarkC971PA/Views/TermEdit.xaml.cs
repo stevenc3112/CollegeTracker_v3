@@ -10,8 +10,10 @@ public partial class TermEdit : ContentPage
     private Term _selectedTerm;
     private int _selectedTermId;
     private bool _editingTerm = false;
-	public TermEdit()
+    private int _currentUserId;
+	public TermEdit(int userId)
 	{
+        _currentUserId = userId;
 		InitializeComponent();
         EditAddTermTitle.Text = "Add Term";
     }
@@ -41,13 +43,13 @@ public partial class TermEdit : ContentPage
                 var termEnd = EndDateDpkr.Date;
 
                 if (_editingTerm)
-                {
+                { 
                     await DatabaseService.UpdateTerm(_selectedTermId, termTitle, termStart, termEnd);
                     await Navigation.PopAsync();
                 }
                 else
                 {
-                    DatabaseService.AddTerm(termTitle, termStart, termEnd);
+                    DatabaseService.AddTerm(termTitle, termStart, termEnd, _currentUserId);
                     await Navigation.PopAsync();
                 }
             }
