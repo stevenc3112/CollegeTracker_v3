@@ -15,7 +15,7 @@
                Grid.Column="1"/>
         </Grid>
     </NavigationPage.TitleView>
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, *, Auto, Auto">
         <Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto" Grid.Row="0">
             <Button x:Name="EditCourseBtn" Clicked="EditCourseBtn_Clicked" Text="Edit Course" Grid.Column="0" Grid.Row="0" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="WhiteSmoke" TextColor="Black" IsVisible="False"/>
             <Button x:Name="DeleteCourseBtn" Clicked="DeleteCourseBtn_Clicked" Text="Delete Course" Grid.Column="0" Grid.Row="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center" BackgroundColor="Red" TextColor="Black" IsVisible="False"/>

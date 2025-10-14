@@ -140,10 +140,14 @@ public partial class AssessmentEdit : ContentPage
                 {
                     if (_isEditing)
                     {
+                        Performance performance = new Performance();
                         //DatabaseService.RemoveAssessment(_assessment.AssessmentId);
+                        if (_assessment is Performance)
+                        {
+                            performance = (Performance)_assessment;
+                        }
 
-                        Performance performance = (Performance)_assessment;
-
+                        performance.AssessmentId = _assessment.AssessmentId;
                         performance.AssociatedCourseId = _associatedCourseId;
                         performance.AssessmentName = AssessmentNameEntry.Text;
                         performance.AssessmentStartDate = AssessmentStartDateDpkr.Date;
@@ -158,7 +162,7 @@ public partial class AssessmentEdit : ContentPage
                     else if (!_isEditing)
                     {
                         Performance performance = new Performance();
-
+                        
                         performance.AssociatedCourseId = _associatedCourseId;
                         performance.AssessmentName = AssessmentNameEntry.Text;
                         performance.AssessmentStartDate = AssessmentStartDateDpkr.Date;
@@ -182,8 +186,13 @@ public partial class AssessmentEdit : ContentPage
                         //update existing objective assessment
                         if (_isEditing)
                         {
-                            Objective objective = (Objective)_assessment;
-
+                            Objective objective = new Objective();
+                            //DatabaseService.RemoveAssessment(_assessment.AssessmentId);
+                            if (_assessment is Objective)
+                            {
+                                objective = (Objective)_assessment;
+                            }
+                            objective.AssessmentId = _assessment.AssessmentId;
                             objective.AssociatedCourseId = _associatedCourseId;
                             objective.AssessmentName = AssessmentNameEntry.Text;
                             objective.AssessmentStartDate = AssessmentStartDateDpkr.Date;

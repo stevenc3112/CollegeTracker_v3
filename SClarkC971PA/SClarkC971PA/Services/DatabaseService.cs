@@ -295,9 +295,19 @@ namespace SClarkC971PA.Services
                 Performance performance = new Performance();
                 performance = (Performance)assessment;
 
+                //Check for the assessment in the other table
+                var otherTypeQuery = await _db.Table<Objective>()
+                .Where(i => i.AssessmentId == performance.AssessmentId)
+                .FirstOrDefaultAsync();
+                if (otherTypeQuery is not null)
+                {
+                    RemoveAssessment(assessment.AssessmentId, "Objective");
+                }
                 var assessmentQuery = await _db.Table<Performance>()
                 .Where(i => i.AssessmentId == performance.AssessmentId)
                 .FirstOrDefaultAsync();
+
+
 
                 //Update and execute the query
                 if (assessmentQuery is not null)
@@ -310,9 +320,11 @@ namespace SClarkC971PA.Services
                     assessmentQuery.PAssessmentFeedback = performance.PAssessmentFeedback;
                     assessmentQuery.AssessmentStatus = performance.AssessmentStatus;
                     assessmentQuery.AssessmentNotify = performance.AssessmentNotify;
-
                     await _db.UpdateAsync(assessmentQuery);
-
+                }
+                else if (assessmentQuery is null)
+                {
+                   AddAssessment(performance);
                 }
             }
             else if (assessment.GetType() == typeof(Objective))
@@ -320,6 +332,13 @@ namespace SClarkC971PA.Services
                 Objective objective = new Objective();
                 objective = (Objective)assessment;
 
+                var otherTypeQuery = await _db.Table<Performance>()
+                .Where(i => i.AssessmentId == objective.AssessmentId)
+                .FirstOrDefaultAsync();
+                if (otherTypeQuery is not null)
+                {
+                    RemoveAssessment(assessment.AssessmentId, "Performance");
+                }
                 var assessmentQuery = await _db.Table<Objective>()
                 .Where(i => i.AssessmentId == objective.AssessmentId)
                 .FirstOrDefaultAsync();
@@ -335,7 +354,10 @@ namespace SClarkC971PA.Services
                     assessmentQuery.AssessmentNotify = objective.AssessmentNotify;
 
                     await _db.UpdateAsync(assessmentQuery);
-
+                }
+                else if (assessmentQuery is null)
+                {
+                    AddAssessment(objective);
                 }
             }
 
