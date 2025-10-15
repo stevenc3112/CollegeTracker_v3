@@ -20,6 +20,7 @@ public partial class CourseEdit : ContentPage
         CourseNameEntry.IsEnabled = true;
         CourseStartDpkr.IsEnabled = true;
         CourseEndDpkr.IsEnabled = true;
+        CourseEndDpkr.Date = DateTime.Today.AddMonths(1);
         CourseStatusPkr.IsEnabled = true;
         NotifyStartEndSwitch.IsEnabled = true;
         CancelBtn.IsVisible = true;

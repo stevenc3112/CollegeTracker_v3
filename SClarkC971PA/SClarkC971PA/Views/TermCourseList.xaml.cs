@@ -35,7 +35,8 @@ public partial class TermCourseList : ContentPage
     private async void DeleteTermBtn_Clicked(object sender, EventArgs e)
     {
         await DatabaseService.RemoveTerm(_selectedTermId);
-        await Navigation.PopToRootAsync();
+        //await Navigation.PopToRootAsync();
+        await Navigation.PopAsync();
     }
     private async void CourseCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {

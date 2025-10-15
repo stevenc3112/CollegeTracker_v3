@@ -16,6 +16,7 @@ public partial class TermEdit : ContentPage
         _currentUserId = userId;
 		InitializeComponent();
         EditAddTermTitle.Text = "Add Term";
+        EndDateDpkr.Date = DateTime.Now.AddMonths(5);
     }
     public TermEdit(Term term)
     {

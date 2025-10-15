@@ -10,12 +10,25 @@ namespace SClarkC971PA.Models
     public class Course
     {
         [PrimaryKey, AutoIncrement]
-        public int CourseId { get; set; }
-        public int AssociatedTermId { get; set; }
-        public string CourseName { get; set; }
-        public DateTime CourseStartDate { get; set; }
-        public DateTime CourseEndDate { get; set; }
-        public string CourseStatus { get; set; }
-        public bool CourseNotify { get; set; }
+        public int CourseId { get { return _courseId; } set { _courseId= value; } }
+        private int _courseId;
+
+        public int AssociatedTermId { get { return _associatedTermId; } set { _associatedTermId= value; } }
+        private int _associatedTermId;
+
+        public string CourseName { get { return _courseName; } set { _courseName = value; } }
+        private string _courseName;
+
+        public DateTime CourseStartDate { get { return _courseStartDate; } set { _courseStartDate = value; } }
+        private DateTime _courseStartDate;
+
+        public DateTime CourseEndDate { get { return _courseEndDate; } set { _courseEndDate= value; } }
+        private DateTime _courseEndDate;
+
+        public string CourseStatus { get { return _courseStatus; } set { _courseStatus = value; } }
+        private string _courseStatus;
+
+        public bool CourseNotify { get { return _courseNotify; } set { _courseNotify= value; } }
+        private bool _courseNotify;
     }
 }

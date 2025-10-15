@@ -10,13 +10,25 @@ namespace SClarkC971PA.Models
     public abstract class Assessment
     {
         [PrimaryKey, AutoIncrement]
-        public int AssessmentId { get; set; }
-        public int AssociatedCourseId { get; set; }
-        public string AssessmentName { get; set; }
-        //TODO: delete this: public string AssessmentType { get; set; }
-        public DateTime AssessmentStartDate { get; set; }
-        public DateTime AssessmentEndDate { get; set; }
-        public bool AssessmentNotify { get; set; }
-        public string AssessmentStatus { get; set; }
+        public int AssessmentId { get { return _assessmentId; } set { _assessmentId = value; } }
+        private int _assessmentId;
+
+        public int AssociatedCourseId { get { return _associatedCourseId; } set { _associatedCourseId = value; } }
+        private int _associatedCourseId;
+
+        public string AssessmentName { get { return _assessmentName; } set {_assessmentName = value; } }
+        private string _assessmentName;
+
+        public DateTime AssessmentStartDate { get { return _assessmentStartDate; } set { _assessmentStartDate = value; } }
+        private DateTime _assessmentStartDate;
+
+        public DateTime AssessmentEndDate { get { return _assessmentEndDate; } set { _assessmentEndDate= value; } }
+        private DateTime _assessmentEndDate;
+
+        public bool AssessmentNotify { get { return _assessmentNotify; } set {_assessmentNotify = value; } }
+        private bool _assessmentNotify;
+
+        public string AssessmentStatus { get { return _assessmentStatus; } set {_assessmentStatus = value; } }
+        private string _assessmentStatus;
     }
 }

@@ -10,6 +10,7 @@ namespace SClarkC971PA.Models
     {
         public Performance() : base()
         { }
-        public string PAssessmentFeedback { get; set; }
+        public string PAssessmentFeedback { get {return _pAssessmentFeedback;} set{ _pAssessmentFeedback = value; } }
+        private string _pAssessmentFeedback;
     }
 }

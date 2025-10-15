@@ -10,6 +10,8 @@ namespace SClarkC971PA.Models
     {
         public Objective() : base()
         { }
-        public int OAssessmentScore { get; set; }
+        public int OAssessmentScore { get { return _oAssessmentScore; } set { _oAssessmentScore = value; } }
+
+        private int _oAssessmentScore;
     }
 }

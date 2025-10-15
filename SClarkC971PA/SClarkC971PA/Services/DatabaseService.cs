@@ -81,7 +81,9 @@ namespace SClarkC971PA.Services
             await _db.DeleteAllAsync<Term>();
             await _db.DeleteAllAsync<Course>();
             await _db.DeleteAllAsync<Instructor>();
-            await _db.DeleteAllAsync<Assessment>();
+            //await _db.DeleteAllAsync<Assessment>();
+            await _db.DeleteAllAsync<Performance>();
+            await _db.DeleteAllAsync<Objective>();
             await _db.DeleteAllAsync<Note>();
             await _db.DeleteAllAsync<User>();
         }
