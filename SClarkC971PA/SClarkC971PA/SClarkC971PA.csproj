@@ -91,6 +91,9 @@
 	  <MauiXaml Update="Views\NoteEdit.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Report.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\TermCourseList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

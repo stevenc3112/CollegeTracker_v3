@@ -39,7 +39,7 @@ public partial class TermList : ContentPage
         if (e.CurrentSelection != null)
         {
             Term term = (Term)e.CurrentSelection.FirstOrDefault();
-            await Navigation.PushAsync(new TermCourseList(term));
+            await Navigation.PushAsync(new TermCourseList(term, _currentUserId));
         }
     }
 
@@ -176,5 +176,10 @@ public partial class TermList : ContentPage
                 }
             }
         }
+    }
+
+    private async void ReportBtn_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new Report(_currentUserId));
     }
 }

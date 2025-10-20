@@ -6,11 +6,12 @@ namespace SClarkC971PA.Views;
 public partial class TermCourseList : ContentPage
 {
     private int _selectedTermId = 0;
-
-    public TermCourseList(Term term)
+    private int _currentUserId = 0;
+    public TermCourseList(Term term, int userId)
     {
 		InitializeComponent();
         _selectedTermId = term.TermId;
+        _currentUserId = userId;
     }
     protected override async void OnAppearing()
     {
@@ -30,7 +31,7 @@ public partial class TermCourseList : ContentPage
     }
     private async void AddCourseBtn_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new CourseEdit(_selectedTermId));
+        await Navigation.PushAsync(new CourseEdit(_selectedTermId, _currentUserId));
     }
     private async void DeleteTermBtn_Clicked(object sender, EventArgs e)
     {
@@ -43,7 +44,7 @@ public partial class TermCourseList : ContentPage
         if (e.CurrentSelection != null)
         {
             Course course = (Course)e.CurrentSelection.FirstOrDefault();
-            await Navigation.PushAsync(new CourseEdit(course));
+            await Navigation.PushAsync(new CourseEdit(course, _currentUserId));
         }
     }
 }

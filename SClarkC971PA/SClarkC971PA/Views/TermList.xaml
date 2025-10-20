@@ -18,7 +18,7 @@
     </NavigationPage.TitleView>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto, *" Padding="10">
+        <Grid RowDefinitions="Auto,Auto,*" Padding="10">
             <Button x:Name="AddTermBtn"
                     Text="Add Term"
                     FontSize="Medium"
@@ -30,10 +30,21 @@
                     TextColor="Black"
                     BorderWidth="1"
                     Grid.Row="0"/>
+            <Button x:Name="ReportBtn"
+                    Text="Assessment Reports"
+                    FontSize="Medium"
+                    Padding="20"
+                    Clicked="ReportBtn_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#78BE43"
+                    BorderColor="#C8C8C8"
+                    TextColor="Black"
+                    BorderWidth="1"
+                    Grid.Row="1"/>
             <Border StrokeShape="RoundRectangle 10"
                     Padding="10"
                     BackgroundColor="WhiteSmoke"
-                    Grid.Row="1">
+                    Grid.Row="2">
 
 
                 <CollectionView x:Name="TermCollectionView"

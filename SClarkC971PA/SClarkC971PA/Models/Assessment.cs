@@ -16,6 +16,9 @@ namespace SClarkC971PA.Models
         public int AssociatedCourseId { get { return _associatedCourseId; } set { _associatedCourseId = value; } }
         private int _associatedCourseId;
 
+        public int AssociatedUserId { get { return _associatedUserId; } set { _associatedUserId = value; } }
+        public int _associatedUserId;
+
         public string AssessmentName { get { return _assessmentName; } set {_assessmentName = value; } }
         private string _assessmentName;
 

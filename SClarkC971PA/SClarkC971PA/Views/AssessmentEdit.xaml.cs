@@ -10,22 +10,26 @@ public partial class AssessmentEdit : ContentPage
     private bool _isEditing;
     private int _associatedCourseId = 0;
     private Assessment _assessment;
+    private int _currentUserId;
 
     private bool _assessmentCountExceeded = false;
-	public AssessmentEdit(int courseId)
+    //Adding assessment constructor
+	public AssessmentEdit(int courseId, int userId)
 	{
         InitializeComponent();
         _associatedCourseId = courseId;
         EditAddAssessmentTitle.Text = "Add Assessment";
         _isEditing = false;
+        _currentUserId = userId;
 
-    }
-    public AssessmentEdit(int courseId, Assessment assessment)
+    }//Editing assessment constructor
+    public AssessmentEdit(int courseId, Assessment assessment, int userId)
     {
         InitializeComponent();
         _associatedCourseId = courseId;
         _assessment = assessment;
         _isEditing = true;
+        _currentUserId = userId;
     }
     protected override async void OnAppearing()
     {
@@ -149,6 +153,7 @@ public partial class AssessmentEdit : ContentPage
 
                         performance.AssessmentId = _assessment.AssessmentId;
                         performance.AssociatedCourseId = _associatedCourseId;
+                        performance.AssociatedUserId = _currentUserId;
                         performance.AssessmentName = AssessmentNameEntry.Text;
                         performance.AssessmentStartDate = AssessmentStartDateDpkr.Date;
                         performance.AssessmentEndDate = AssessmentEndDateDpkr.Date;
@@ -164,6 +169,7 @@ public partial class AssessmentEdit : ContentPage
                         Performance performance = new Performance();
                         
                         performance.AssociatedCourseId = _associatedCourseId;
+                        performance.AssociatedUserId = _currentUserId;
                         performance.AssessmentName = AssessmentNameEntry.Text;
                         performance.AssessmentStartDate = AssessmentStartDateDpkr.Date;
                         performance.AssessmentEndDate = AssessmentEndDateDpkr.Date;
@@ -194,6 +200,7 @@ public partial class AssessmentEdit : ContentPage
                             }
                             objective.AssessmentId = _assessment.AssessmentId;
                             objective.AssociatedCourseId = _associatedCourseId;
+                            objective.AssociatedUserId = _currentUserId;
                             objective.AssessmentName = AssessmentNameEntry.Text;
                             objective.AssessmentStartDate = AssessmentStartDateDpkr.Date;
                             objective.AssessmentEndDate = AssessmentEndDateDpkr.Date;
@@ -208,6 +215,7 @@ public partial class AssessmentEdit : ContentPage
                         {
                             Objective objective = new Objective();
                             objective.AssociatedCourseId = _associatedCourseId;
+                            objective.AssociatedUserId = _currentUserId;
                             objective.AssessmentName = AssessmentNameEntry.Text;
                             objective.AssessmentStartDate = AssessmentStartDateDpkr.Date;
                             objective.AssessmentEndDate = AssessmentEndDateDpkr.Date;

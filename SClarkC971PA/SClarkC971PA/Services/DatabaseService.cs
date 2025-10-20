@@ -32,7 +32,20 @@ namespace SClarkC971PA.Services
             await _db.CreateTableAsync<User>();
         }
 
-
+        #region Assessment Report Methods
+        public static async Task<IEnumerable<Performance>> GetPerformanceAssessmentReport(int userId, string assessmentStatus)
+        {
+            await Init();
+            var performanceAssessments = await _db.Table<Performance>().Where(i => i.AssociatedUserId == userId && i.AssessmentStatus == assessmentStatus).ToListAsync();
+            return performanceAssessments;
+        }
+        public static async Task<IEnumerable<Objective>> GetObjectiveAssessmentReport(int userId, string assessmentStatus)
+        {
+            await Init();
+            var objectiveAssessments = await _db.Table<Objective>().Where(i => i.AssociatedUserId == userId && i.AssessmentStatus == assessmentStatus).ToListAsync();
+            return objectiveAssessments;
+        }
+        #endregion
         #region User Methods
         //Get list of users
         public static async Task<IEnumerable<User>> GetUsers()
@@ -58,7 +71,7 @@ namespace SClarkC971PA.Services
         //Authenticate user and return UserId
         public static async Task<int> AuthenticateUser(string username, string password)
         {
-            var lookedUpUserId = 0;
+            //var lookedUpUserId = 0;
             await Init();
             var user = await _db.Table<User>()
                 .Where(i => i.UserUsername == username && i.UserPassword == password)
@@ -303,7 +316,7 @@ namespace SClarkC971PA.Services
                 .FirstOrDefaultAsync();
                 if (otherTypeQuery is not null)
                 {
-                    RemoveAssessment(assessment.AssessmentId, "Objective");
+                    await RemoveAssessment(assessment.AssessmentId, "Objective");
                 }
                 var assessmentQuery = await _db.Table<Performance>()
                 .Where(i => i.AssessmentId == performance.AssessmentId)
@@ -326,7 +339,7 @@ namespace SClarkC971PA.Services
                 }
                 else if (assessmentQuery is null)
                 {
-                   AddAssessment(performance);
+                   await AddAssessment(performance);
                 }
             }
             else if (assessment.GetType() == typeof(Objective))
@@ -339,7 +352,7 @@ namespace SClarkC971PA.Services
                 .FirstOrDefaultAsync();
                 if (otherTypeQuery is not null)
                 {
-                    RemoveAssessment(assessment.AssessmentId, "Performance");
+                    await RemoveAssessment(assessment.AssessmentId, "Performance");
                 }
                 var assessmentQuery = await _db.Table<Objective>()
                 .Where(i => i.AssessmentId == objective.AssessmentId)
@@ -359,7 +372,7 @@ namespace SClarkC971PA.Services
                 }
                 else if (assessmentQuery is null)
                 {
-                    AddAssessment(objective);
+                    await AddAssessment(objective);
                 }
             }
 

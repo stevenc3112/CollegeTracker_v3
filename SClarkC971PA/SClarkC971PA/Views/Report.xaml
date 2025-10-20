@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SClarkC971PA.Views.Report"
+             Title="Assessment Reports">
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*">
+            <Grid Grid.Row="0"  RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *" HorizontalOptions="Center">
+
+                <Label Text="Assessment Type:" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
+                <Picker x:Name="AssessmentTypePkr" Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  FontSize="Medium" VerticalOptions="Center">
+                    <Picker.Items>
+                        <x:String>Objective</x:String>
+                        <x:String>Performance</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Label Text="Status:" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" FontSize="Medium" VerticalOptions="Center"/>
+                <Picker x:Name="AssessmentStatusPkr" Grid.Row ="1" Grid.Column="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center">
+                    <Picker.Items>
+                        <x:String>Not Started</x:String>
+                        <x:String>Started</x:String>
+                        <x:String>Complete</x:String>
+                    </Picker.Items>
+                </Picker>
+
+            </Grid>
+            <Border x:Name="AssessmentCollectionViewBorder" StrokeShape="RoundRectangle 10"
+                        Padding="10"
+                        BackgroundColor="WhiteSmoke" Grid.Row="1">
+                <Grid RowDefinitions="Auto,Auto, *, Auto">
+                    <Button x:Name="LoadReportBtn"
+                        Text="Load Report"
+                        FontSize="Medium"
+                        Padding="20"
+                        Clicked="LoadReportBtn_Clicked"
+                        HorizontalOptions="Fill"
+                        BackgroundColor="#78BE43"
+                        BorderColor="#C8C8C8"
+                        TextColor="Black"
+                        BorderWidth="1"
+                        Grid.Row="0"/>
+                    <Label Grid.Row="1" x:Name="ReportErrorLbl"/>
+                    <CollectionView x:Name="AssessmentCollectionView"
+                                    ItemsSource="{Binding Assessment}"
+                                    EmptyView="No assessments to display."
+                                    SelectionMode="Single"
+                                    Grid.Row="2">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+
+                        <!--Define the appearance of each item in the list-->
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border StrokeShape="RoundRectangle 10"
+                                        BackgroundColor="#46B1EF"
+                                        Padding="10">
+
+                                    <StackLayout>
+                                        <Grid Padding="5" RowSpacing="1" ColumnSpacing="22" BackgroundColor="#46B1EF" RowDefinitions="25,25,25,25" ColumnDefinitions="Auto,Auto" HorizontalOptions="Center">
+
+                                            <Label Grid.Row="0" Grid.Column="0" Text="Name:" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding AssessmentName}" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="1" Grid.Column="0" Text="Status:" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding AssessmentStatus}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="2" Grid.Column="0" Text="Start:" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding AssessmentStartDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="3" Grid.Column="0" Text="End:" FontSize="Medium" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding AssessmentStartDate, StringFormat='{0:M/dd/yyyy}'}" FontSize="Micro"  VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                                        </Grid>
+                                    </StackLayout>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                    <Label Grid.Row="3" x:Name="TimestampLbl" Text="" FontSize="Micro" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                </Grid>
+
+            </Border>
+        </Grid>
+
+    </ContentPage.Content>
+</ContentPage>

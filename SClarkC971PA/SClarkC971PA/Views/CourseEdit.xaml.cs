@@ -11,8 +11,9 @@ public partial class CourseEdit : ContentPage
     private Course _course = new Course();
     private Instructor _instructor = new Instructor();
     private bool _isEditing = false;
+    private int _currentUserId = 0;
     //Constructor for Add View
-    public CourseEdit(int associatedTermId)
+    public CourseEdit(int associatedTermId, int userId)
 	{
 		InitializeComponent();
         EditAddCourseTitle.Text = "Add Course";
@@ -26,15 +27,22 @@ public partial class CourseEdit : ContentPage
         CancelBtn.IsVisible = true;
         SaveCourseBtn.IsVisible = true;
         InstructorNameLbl.Text = "You can add an instructor after saving a course.";
+
+        _currentUserId = userId;
+
+
         SwitchToEditMode();
     }
     //Constructor for details and edit view
-    public CourseEdit(Course course)
+    public CourseEdit(Course course, int userId)
     {
         InitializeComponent();
         EditAddCourseTitle.Text = "Edit Course";
         _course = course;
         _isEditing = true;
+
+        _currentUserId = userId;
+
         SwitchToViewMode();
 
     }
@@ -94,14 +102,14 @@ public partial class CourseEdit : ContentPage
     private async void CourseAssessmentsBtn_Clicked(object sender, EventArgs e)
     {
 
-        await Navigation.PushAsync(new AssessmentEdit(_course.CourseId));
+        await Navigation.PushAsync(new AssessmentEdit(_course.CourseId, _currentUserId));
     }
     private async void AssessmentCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection != null)
         {
             Assessment assessment = (Assessment)e.CurrentSelection.FirstOrDefault();
-            await Navigation.PushAsync(new AssessmentEdit(_course.CourseId, assessment));
+            await Navigation.PushAsync(new AssessmentEdit(_course.CourseId, assessment, _currentUserId));
         }
     }
 
