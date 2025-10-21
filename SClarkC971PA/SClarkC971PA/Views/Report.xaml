@@ -28,7 +28,13 @@
             <Border x:Name="AssessmentCollectionViewBorder" StrokeShape="RoundRectangle 10"
                         Padding="10"
                         BackgroundColor="WhiteSmoke" Grid.Row="1">
-                <Grid RowDefinitions="Auto,Auto, *, Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto, *, Auto">
+                    <SearchBar Grid.Row="0" 
+                        x:Name="ReportSearchBar" 
+                        Placeholder="Search report"
+                        TextChanged="ReportSearchBar_TextChanged"/>
+                    <!--SearchButtonPressed="ReportSearchBar_SearchButtonPressed"-->
+
                     <Button x:Name="LoadReportBtn"
                         Text="Load Report"
                         FontSize="Medium"
@@ -39,13 +45,13 @@
                         BorderColor="#C8C8C8"
                         TextColor="Black"
                         BorderWidth="1"
-                        Grid.Row="0"/>
-                    <Label Grid.Row="1" x:Name="ReportErrorLbl"/>
+                        Grid.Row="1"/>
+                    <Label Grid.Row="2" x:Name="ReportErrorLbl"/>
                     <CollectionView x:Name="AssessmentCollectionView"
                                     ItemsSource="{Binding Assessment}"
                                     EmptyView="No assessments to display."
                                     SelectionMode="Single"
-                                    Grid.Row="2">
+                                    Grid.Row="3">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
@@ -76,7 +82,7 @@
                         </CollectionView.ItemTemplate>
 
                     </CollectionView>
-                    <Label Grid.Row="3" x:Name="TimestampLbl" Text="" FontSize="Micro" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                    <Label Grid.Row="4" x:Name="TimestampLbl" Text="" FontSize="Micro" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
                 </Grid>
 
             </Border>
