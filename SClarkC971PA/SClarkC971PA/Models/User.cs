@@ -15,7 +15,7 @@ namespace SClarkC971PA.Models
         public string UserUsername { get { return _userUsername; } set { _userUsername = value; } }
         private string _userUsername;
 
-        public string UserPassword { get { return _userPassword; } set { _userPassword = value; } }
-        private string _userPassword;
+        public string UserPasswordHash { get { return _userPasswordHash; } set { _userPasswordHash = value; } }
+        private string _userPasswordHash;
     }
 }

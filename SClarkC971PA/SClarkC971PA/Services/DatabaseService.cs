@@ -54,7 +54,7 @@ namespace SClarkC971PA.Services
             var users = await _db.Table<User>().ToListAsync();
             return users;
         }
-        
+
         //Add user
         public static async Task<int> AddUser(string username, string password)
         {
@@ -62,24 +62,30 @@ namespace SClarkC971PA.Services
             var user = new User()
             {
                 UserUsername = username,
-                UserPassword = password
+                UserPasswordHash = PasswordHasher.HashPassword(password)
             };
             await _db.InsertAsync(user);
-            var id = user.UserId;
-            return id;
+            return user.UserId;
         }
         //Authenticate user and return UserId
         public static async Task<int> AuthenticateUser(string username, string password)
         {
-            //var lookedUpUserId = 0;
             await Init();
             var user = await _db.Table<User>()
-                .Where(i => i.UserUsername == username && i.UserPassword == password)
+                .Where(i => i.UserUsername == username)
                 .FirstOrDefaultAsync();
             if (user == null) {
                 return 0;
             }
-            return user.UserId;
+            var ok = PasswordHasher.VerifyPassword(password, user.UserPasswordHash);
+            if (ok)
+            {
+                return user.UserId;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         //TODO: Delete the Clear User Table functionality
