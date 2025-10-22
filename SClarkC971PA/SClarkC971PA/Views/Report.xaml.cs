@@ -1,6 +1,7 @@
 
 using SClarkC971PA.Services;
 using SClarkC971PA.Models;
+using System.Runtime.CompilerServices;
 namespace SClarkC971PA.Views;
 
 public partial class Report : ContentPage
@@ -9,7 +10,6 @@ public partial class Report : ContentPage
 	private string _assessmentType = "";
 	private string _assessmentStatus = "";
 	private IEnumerable<Assessment> _originalReport;
-	private IEnumerable<Assessment> _reportSearchResult;
 	public Report(int currentUserId)
 	{
 		InitializeComponent();
@@ -29,7 +29,6 @@ public partial class Report : ContentPage
             if (_assessmentType == "Performance")
             {
                 _originalReport = await DatabaseService.GetPerformanceAssessmentReport(_currentUserId, _assessmentStatus);
-				_reportSearchResult = Enumerable.Empty<Assessment>();
                 AssessmentCollectionView.ItemsSource = _originalReport;
 				ReportErrorLbl.Text = "Report run " + DateTime.Now.ToString("MM/dd/yyyy 'at' hh:mm tt");
 				ReportErrorLbl.IsVisible = true;
@@ -37,7 +36,6 @@ public partial class Report : ContentPage
 			else if (_assessmentType == "Objective")
 			{
                 _originalReport = await DatabaseService.GetObjectiveAssessmentReport(_currentUserId, _assessmentStatus);
-                _reportSearchResult = Enumerable.Empty<Assessment>();
                 AssessmentCollectionView.ItemsSource = _originalReport;
                 ReportErrorLbl.Text = "Report run " + DateTime.Now.ToString("MM/dd/yyyy 'at' hh:mm tt");
                 ReportErrorLbl.IsVisible = true;
@@ -50,80 +48,62 @@ public partial class Report : ContentPage
 			ReportErrorLbl.IsVisible = true;
 		}
     }
-
-  //  private void ReportSearchBar_SearchButtonPressed(object sender, EventArgs e)
-  //  {
-		//if (string.IsNullOrEmpty(ReportSearchBar.Text))
-		//{
-		//	AssessmentCollectionView.ItemsSource = _originalReport;
-		//}
-		//else
-		//{
-		//	string searchKeyword = ReportSearchBar.Text.ToString();
-		//	foreach (Assessment assessment in _originalReport)
-		//	{
-		//		if (Int32.TryParse(searchKeyword, out int assessmentId))
-		//		{
-		//			if (assessment.AssessmentId == assessmentId && !_reportSearchResult.Contains(assessment))
-		//			{
-		//				_reportSearchResult.Append(assessment);
-		//			}
-		//		}
-		//		if (DateTime.TryParse(searchKeyword, out DateTime searchDate))
-		//		{
-		//			if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentStartDate == searchDate || assessment.AssessmentEndDate == searchDate)
-		//			{
-		//				_reportSearchResult.Append(assessment);
-		//			}
-		//		}
-		//		if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentStatus.ToString().ToLower().Contains(searchKeyword.ToLower()))
-		//		{
-		//			_reportSearchResult.Append(assessment);
-		//		}
-		//		if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentName.ToString().ToLower().Contains(searchKeyword.ToLower()))
-		//		{
-		//			_reportSearchResult.Append(assessment);
-		//		}
-		//		AssessmentCollectionView.ItemsSource = _reportSearchResult;
-  //          }
-		//}
-  //  }
-
     private void ReportSearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (string.IsNullOrEmpty(ReportSearchBar.Text))
+        if (_originalReport == null)
         {
-            AssessmentCollectionView.ItemsSource = _originalReport;
+            AssessmentCollectionView.ItemsSource = null;
+			return;
         }
-        else
-        {
-            string searchKeyword = ReportSearchBar.Text.ToString();
-            foreach (Assessment assessment in _originalReport)
-            {
-                if (Int32.TryParse(searchKeyword, out int assessmentId))
-                {
-                    if (assessment.AssessmentId == assessmentId && !_reportSearchResult.Contains(assessment))
-                    {
-                        _reportSearchResult.Append(assessment);
-                    }
+
+		string searchKeyword = ReportSearchBar?.Text?.Trim() ?? string.Empty;
+
+		if (string.IsNullOrEmpty(searchKeyword))
+		{
+			AssessmentCollectionView.ItemsSource = _originalReport;
+			return;
+		}
+
+		bool hasId = int.TryParse(searchKeyword, out int assessmentId);
+		bool hasDate = DateTime.TryParse(searchKeyword, out DateTime searchDate);
+		string keywordLower = searchKeyword.ToLower();
+
+		var results = new List<Assessment>();
+
+		foreach (Assessment assessment in _originalReport)
+		{
+			bool match = false;
+			if (hasId && assessment.AssessmentId == assessmentId)
+			{
+				match = true;
+			}
+			
+			if(!match && hasDate)
+			{
+				var d = searchDate.Date;
+				if (assessment.AssessmentStartDate.Date == d || assessment.AssessmentEndDate.Date == d)
+				{
+					match = true;
                 }
-                if (DateTime.TryParse(searchKeyword, out DateTime searchDate))
-                {
-                    if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentStartDate == searchDate || assessment.AssessmentEndDate == searchDate)
-                    {
-                        _reportSearchResult.Append(assessment);
-                    }
-                }
-                if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentStatus.ToString().ToLower().Contains(searchKeyword.ToLower()))
-                {
-                    _reportSearchResult.Append(assessment);
-                }
-                if (!_reportSearchResult.Contains(assessment) && assessment.AssessmentName.ToString().ToLower().Contains(searchKeyword.ToLower()))
-                {
-                    _reportSearchResult.Append(assessment);
-                }
-                AssessmentCollectionView.ItemsSource = _reportSearchResult;
+
             }
+
+			if (!match && (assessment.AssessmentStatus?.ToString() ?? string.Empty).ToLower().Contains(keywordLower))
+			{
+				match = true;
+            }
+
+			if (!match && (assessment.AssessmentName?.ToString() ?? string.Empty).ToLower().Contains(keywordLower))
+			{
+				match = true;
+            }
+
+			if (match)
+			{
+				results.Add(assessment);
+            }
+
         }
+            AssessmentCollectionView.ItemsSource = results;
     }
 }

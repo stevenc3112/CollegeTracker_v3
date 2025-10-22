@@ -29,6 +29,7 @@
                         Padding="10"
                         BackgroundColor="WhiteSmoke" Grid.Row="1">
                 <Grid RowDefinitions="Auto,Auto,Auto, *, Auto">
+                    
                     <SearchBar Grid.Row="0" 
                         x:Name="ReportSearchBar" 
                         Placeholder="Search report"
