@@ -18,11 +18,11 @@ public partial class TermList : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
+        //Services.Settings.FirstRun = false;
         if (Services.Settings.FirstRun)
         {
-            await DatabaseService.LoadSampleData();
-
+            await DatabaseService.LoadSampleData(_currentUserId);
+            await DatabaseService.LoadDropdowns();
             Services.Settings.FirstRun = false;
         }
 

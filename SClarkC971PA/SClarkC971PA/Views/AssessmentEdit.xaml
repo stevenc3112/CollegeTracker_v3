@@ -21,10 +21,10 @@
 
             <Label Text="Assessment Type:" Grid.Row="1" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
             <Picker x:Name="AssessmentTypePkr" SelectedIndexChanged="AssessmentTypePkr_SelectedIndexChanged" Grid.Column="2" Grid.Row ="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center">
-                <Picker.Items>
+                <!--<Picker.Items>
                     <x:String>Objective</x:String>
                     <x:String>Performance</x:String>
-                </Picker.Items>
+                </Picker.Items>-->
             </Picker>
 
             <Label Text="Start Date" Grid.Row="2" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>

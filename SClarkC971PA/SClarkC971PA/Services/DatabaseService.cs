@@ -30,7 +30,46 @@ namespace SClarkC971PA.Services
             await _db.CreateTableAsync<Performance>();
             await _db.CreateTableAsync<Note>();
             await _db.CreateTableAsync<User>();
+            await _db.CreateTableAsync<StatusDropdown>();
+            await _db.CreateTableAsync<AssessmentTypeDropdown>();
         }
+
+        #region Dropdown Methods (Scalability)
+
+        public static async void AddStatusItem(string item)
+        {
+            await Init();
+            var statusDropdown = new StatusDropdown()
+            {
+                StatusItem = item
+            };
+            await _db.InsertAsync(statusDropdown);
+        }
+
+        public static async void AddAssessmentTypeItem(string item)
+        {
+            var assessmentDropdown = new AssessmentTypeDropdown()
+            {
+                TypeItem = item
+            };
+            await _db.InsertAsync(assessmentDropdown);
+        }
+
+        public static async Task<IEnumerable<StatusDropdown>> GetStatusItems()
+        {
+            await Init();
+            var items = await _db.Table<StatusDropdown>().ToListAsync();
+            return items;
+        }
+
+        public static async Task<IEnumerable<AssessmentTypeDropdown>> GetAssessmentTypeItems()
+        {
+            await Init();
+            var items = await _db.Table<AssessmentTypeDropdown>().ToListAsync();
+            return items;
+        }
+
+        #endregion
 
         #region Assessment Report Methods
         public static async Task<IEnumerable<Performance>> GetPerformanceAssessmentReport(int userId, string assessmentStatus)
@@ -484,14 +523,15 @@ namespace SClarkC971PA.Services
         #endregion
 
         #region DemoData
-        public static async Task LoadSampleData()
+        public static async Task LoadSampleData(int currentUserId)
         {
             await Init();
             Term term = new Term()
             {
                 TermTitle = "Fall 2030",
                 TermStartDate= DateTime.Today.Date,
-                TermEndDate= DateTime.Today.Date.AddDays(1)
+                TermEndDate= DateTime.Today.Date.AddDays(1),
+                AssociatedUserId = currentUserId
             };
             await _db.InsertAsync(term);
 
@@ -501,7 +541,7 @@ namespace SClarkC971PA.Services
               CourseName = "Networking",
               CourseStartDate=DateTime.Today.Date,
               CourseEndDate=DateTime.Today.Date.AddDays(1),
-              CourseStatus="Active",
+              CourseStatus="In Progress",
               CourseNotify = true,
             };
             await _db.InsertAsync(course);
@@ -513,6 +553,7 @@ namespace SClarkC971PA.Services
                 PAssessmentFeedback = "You did great!",
                 AssessmentStartDate= DateTime.Today.Date,
                 AssessmentEndDate= DateTime.Today.Date.AddDays(1),
+                AssociatedUserId = currentUserId,
                 AssessmentNotify = true
             };
             await _db.InsertAsync(performance);
@@ -524,6 +565,7 @@ namespace SClarkC971PA.Services
                 OAssessmentScore = 100,
                 AssessmentStartDate = DateTime.Today.Date,
                 AssessmentEndDate = DateTime.Today.Date.AddDays(1),
+                AssociatedUserId = currentUserId,
                 AssessmentNotify = true
             };
             await _db.InsertAsync(performance);
@@ -536,6 +578,42 @@ namespace SClarkC971PA.Services
                 InstructorEmail="anika.patel@strimeuniveristy.edu"
             };
             await _db.InsertAsync(instructor);
+        }
+        #endregion
+
+        #region Dropdowns
+        public static async Task LoadDropdowns()
+        {
+            await Init();
+            AssessmentTypeDropdown typeDropdownItem = new AssessmentTypeDropdown()
+            {
+                TypeItem = "Performance"
+            };
+            await _db.InsertAsync(typeDropdownItem);
+
+            AssessmentTypeDropdown typeDropdownItem2 = new AssessmentTypeDropdown()
+            {
+                TypeItem = "Objective"
+            };
+            await _db.InsertAsync(typeDropdownItem2);
+
+            StatusDropdown statusDropdownItem = new StatusDropdown()
+            {
+                StatusItem = "Not Started"
+            };
+            await _db.InsertAsync(statusDropdownItem);
+
+            StatusDropdown statusDropdownItem2 = new StatusDropdown()
+            {
+                StatusItem = "In Progress"
+            };
+            await _db.InsertAsync(statusDropdownItem2);
+
+            StatusDropdown statusDropdownItem3 = new StatusDropdown()
+            {
+                StatusItem = "Completed"
+            };
+            await _db.InsertAsync(statusDropdownItem3);
         }
         #endregion
     }

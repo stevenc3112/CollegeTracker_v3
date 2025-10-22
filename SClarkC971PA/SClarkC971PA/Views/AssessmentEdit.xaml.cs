@@ -34,6 +34,10 @@ public partial class AssessmentEdit : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        AssessmentStatusPkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetStatusItems();
+        AssessmentTypePkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetAssessmentTypeItems();
+
         if (_isEditing)
         {
             EditAddAssessmentTitle.Text = "Edit Assessment";

@@ -50,11 +50,15 @@ public partial class CourseEdit : ContentPage
     {
         base.OnAppearing();
 
+
+
         if (_isEditing)
         {
             AssessmentCollectionView.ItemsSource = await DatabaseService.GetAssessments(_course.CourseId);
             CourseNotesBtn.IsVisible = true;
             CourseAssessmentsBtn.IsVisible = true;
+            CourseStatusPkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetStatusItems();
+
             _instructor = await DatabaseService.LookupInstructor(_course.CourseId);
             if (_instructor != null) 
             {
