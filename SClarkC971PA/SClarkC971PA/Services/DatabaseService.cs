@@ -144,6 +144,8 @@ namespace SClarkC971PA.Services
             await _db.DeleteAllAsync<Objective>();
             await _db.DeleteAllAsync<Note>();
             await _db.DeleteAllAsync<User>();
+            await _db.DeleteAllAsync<StatusDropdown>();
+            await _db.DeleteAllAsync<AssessmentTypeDropdown>();
         }
         //TODO: Delete "Get user count" functionality
         public static async Task<int> GetUserCount()

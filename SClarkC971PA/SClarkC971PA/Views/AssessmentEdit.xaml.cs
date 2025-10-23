@@ -12,7 +12,7 @@ public partial class AssessmentEdit : ContentPage
     private Assessment _assessment;
     private int _currentUserId;
 
-    private bool _assessmentCountExceeded = false;
+    //private bool _assessmentCountExceeded = false;
     //Adding assessment constructor
 	public AssessmentEdit(int courseId, int userId)
 	{
@@ -35,8 +35,13 @@ public partial class AssessmentEdit : ContentPage
     {
         base.OnAppearing();
 
-        AssessmentStatusPkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetStatusItems();
-        AssessmentTypePkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetAssessmentTypeItems();
+        AssessmentStatusPkr.ItemsSource = null;
+        var statusTable = await DatabaseService.GetStatusItems();
+        AssessmentStatusPkr.ItemsSource = statusTable.Select(s => s.StatusItem).ToList();
+
+        AssessmentTypePkr.ItemsSource = null;
+        var typeTable = await DatabaseService.GetAssessmentTypeItems();
+        AssessmentTypePkr.ItemsSource = typeTable.Select(s => s.TypeItem).ToList();
 
         if (_isEditing)
         {
@@ -51,11 +56,6 @@ public partial class AssessmentEdit : ContentPage
 
             if (_assessment is Performance performanceAssessment)
             {
-                //AssessmentNameEntry.Text = performanceAssessment.AssessmentName;
-                //AssessmentStartDateDpkr.Date = performanceAssessment.AssessmentStartDate;
-                //AssessmentEndDateDpkr.Date = performanceAssessment.AssessmentEndDate;
-                //NotifyAssessmentSwitch.IsToggled = performanceAssessment.AssessmentNotify;
-
                 AssessmentTypePkr.SelectedItem = "Performance";
                 PAssessmentFeedbackEdt.Text = performanceAssessment.PAssessmentFeedback;
                 PAssessmentFeedbackEdt.IsVisible = true;
@@ -66,11 +66,6 @@ public partial class AssessmentEdit : ContentPage
             }
             else if (_assessment is Objective objectiveAssessment)
             {
-                //AssessmentNameEntry.Text = objectiveAssessment.AssessmentName;
-                //AssessmentStartDateDpkr.Date = objectiveAssessment.AssessmentStartDate;
-                //AssessmentEndDateDpkr.Date = objectiveAssessment.AssessmentEndDate;
-                //NotifyAssessmentSwitch.IsToggled = objectiveAssessment.AssessmentNotify;
-
                 AssessmentTypePkr.SelectedItem = "Objective";
                 OAssessmentScoreEntry.Text = objectiveAssessment.OAssessmentScore.ToString();
                 OAssessmentScoreEntry.IsVisible = true;
@@ -88,6 +83,7 @@ public partial class AssessmentEdit : ContentPage
             NotifyAssessmentSwitch.IsToggled = false;
 
             AssessmentTypePkr.SelectedItem = "Objective";
+            AssessmentStatusPkr.SelectedIndex = 0;
             OAssessmentScoreEntry.Text = "";
             OAssessmentScoreEntry.IsVisible = true;
             OAssessmentScoreEntryLbl.IsVisible = true;
@@ -97,7 +93,7 @@ public partial class AssessmentEdit : ContentPage
 
     private void AssessmentTypePkr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (AssessmentTypePkr.SelectedIndex == 1)
+        if (AssessmentTypePkr.SelectedItem.ToString() == "Performance")
         {
             PAssessmentFeedbackEdt.IsVisible = true;
             PAssessmentFeedbackEdtLbl.IsVisible = true;
@@ -105,7 +101,7 @@ public partial class AssessmentEdit : ContentPage
             OAssessmentScoreEntry.IsVisible = false;
             OAssessmentScoreEntryLbl.IsVisible = false;
         }
-        else if (AssessmentTypePkr.SelectedIndex == 0)
+        else if (AssessmentTypePkr.SelectedItem.ToString() == "Objective")
         {
             OAssessmentScoreEntry.IsVisible = true;
             OAssessmentScoreEntryLbl.IsVisible = true;
@@ -144,12 +140,11 @@ public partial class AssessmentEdit : ContentPage
         {
             if (Validation.ValidateDates(AssessmentStartDateDpkr.Date, AssessmentEndDateDpkr.Date))
             {
-                if (AssessmentTypePkr.SelectedIndex == 1)
+                if (AssessmentTypePkr.SelectedItem.ToString() == "Performance")
                 {
                     if (_isEditing)
                     {
                         Performance performance = new Performance();
-                        //DatabaseService.RemoveAssessment(_assessment.AssessmentId);
                         if (_assessment is Performance)
                         {
                             performance = (Performance)_assessment;
@@ -185,7 +180,7 @@ public partial class AssessmentEdit : ContentPage
                         await Navigation.PopAsync();
                     }
                 }//If assessment is objective
-                else if (AssessmentTypePkr.SelectedIndex == 0)
+                else if (AssessmentTypePkr.SelectedItem.ToString() == "Objective")
                 {
                     bool scoreIsInt = int.TryParse(OAssessmentScoreEntry.Text, out int scoreInt);
 
@@ -197,7 +192,6 @@ public partial class AssessmentEdit : ContentPage
                         if (_isEditing)
                         {
                             Objective objective = new Objective();
-                            //DatabaseService.RemoveAssessment(_assessment.AssessmentId);
                             if (_assessment is Objective)
                             {
                                 objective = (Objective)_assessment;
@@ -214,7 +208,7 @@ public partial class AssessmentEdit : ContentPage
 
                             await DatabaseService.UpdateAssessment(objective);
                             await Navigation.PopAsync();
-                        }//Add new objecitve assessment
+                        }//Add new objective assessment
                         else if (!_isEditing)
                         {
                             Objective objective = new Objective();

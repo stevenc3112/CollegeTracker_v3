@@ -49,17 +49,19 @@ public partial class CourseEdit : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-
+       
+        CourseStatusPkr.ItemsSource = null;
+        var statusTable = await DatabaseService.GetStatusItems();
+        CourseStatusPkr.ItemsSource = statusTable.Select(s => s.StatusItem).ToList();
 
         if (_isEditing)
         {
             AssessmentCollectionView.ItemsSource = await DatabaseService.GetAssessments(_course.CourseId);
             CourseNotesBtn.IsVisible = true;
             CourseAssessmentsBtn.IsVisible = true;
-            CourseStatusPkr.ItemsSource = (System.Collections.IList)await DatabaseService.GetStatusItems();
 
-            _instructor = await DatabaseService.LookupInstructor(_course.CourseId);
+            CourseStatusPkr.SelectedItem = _course.CourseStatus.ToString();
+           _instructor = await DatabaseService.LookupInstructor(_course.CourseId);
             if (_instructor != null) 
             {
                 InstructorNameLbl.Text = _instructor.InstructorName;
@@ -83,7 +85,7 @@ public partial class CourseEdit : ContentPage
         }
     }
 
-    private async void  CancelBtn_Clicked(object sender, EventArgs e)
+    private void  CancelBtn_Clicked(object sender, EventArgs e)
     {
         SwitchToViewMode();
     }
