@@ -9,19 +9,19 @@
 
                 <Label Text="Assessment Type:" Grid.Row="0" Grid.Column="0" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start"/>
                 <Picker x:Name="AssessmentTypePkr" Grid.Row ="0" Grid.Column="1" HorizontalOptions="FillAndExpand"  FontSize="Medium" VerticalOptions="Center">
-                    <Picker.Items>
+                    <!--<Picker.Items>
                         <x:String>Objective</x:String>
                         <x:String>Performance</x:String>
-                    </Picker.Items>
+                    </Picker.Items>-->
                 </Picker>
 
                 <Label Text="Status:" Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" FontSize="Medium" VerticalOptions="Center"/>
                 <Picker x:Name="AssessmentStatusPkr" Grid.Row ="1" Grid.Column="1" HorizontalOptions="Fill" FontSize="Medium" VerticalOptions="Center">
-                    <Picker.Items>
+                    <!--<Picker.Items>
                         <x:String>Not Started</x:String>
                         <x:String>Started</x:String>
                         <x:String>Complete</x:String>
-                    </Picker.Items>
+                    </Picker.Items>-->
                 </Picker>
 
             </Grid>

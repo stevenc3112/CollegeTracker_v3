@@ -83,6 +83,11 @@ public partial class CourseEdit : ContentPage
                 InstructorEmailLbl.IsVisible = false;
             }
         }
+        else if (!_isEditing)
+        {
+            CourseStatusPkr.SelectedItem = "Not Started";
+        }
+
     }
 
     private void  CancelBtn_Clicked(object sender, EventArgs e)

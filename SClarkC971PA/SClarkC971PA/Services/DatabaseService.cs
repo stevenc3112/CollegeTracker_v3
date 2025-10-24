@@ -129,25 +129,25 @@ namespace SClarkC971PA.Services
 
         //TODO: Delete the Clear User Table functionality
         //public static async Task ClearUserTable()
-        public static async Task ClearAllTables()
-        {
-            await Init();
-            //var clearTableCmd = "DELETE FROM User";
-            //await _db.ExecuteAsync(clearTableCmd);
+        //public static async Task ClearAllTables()
+        //{
+        //    await Init();
+        //    //var clearTableCmd = "DELETE FROM User";
+        //    //await _db.ExecuteAsync(clearTableCmd);
 
-            //await _db.DeleteAllAsync<User>();
-            await _db.DeleteAllAsync<Term>();
-            await _db.DeleteAllAsync<Course>();
-            await _db.DeleteAllAsync<Instructor>();
-            //await _db.DeleteAllAsync<Assessment>();
-            await _db.DeleteAllAsync<Performance>();
-            await _db.DeleteAllAsync<Objective>();
-            await _db.DeleteAllAsync<Note>();
-            await _db.DeleteAllAsync<User>();
-            await _db.DeleteAllAsync<StatusDropdown>();
-            await _db.DeleteAllAsync<AssessmentTypeDropdown>();
-        }
-        //TODO: Delete "Get user count" functionality
+        //    //await _db.DeleteAllAsync<User>();
+        //    await _db.DeleteAllAsync<Term>();
+        //    await _db.DeleteAllAsync<Course>();
+        //    await _db.DeleteAllAsync<Instructor>();
+        //    //await _db.DeleteAllAsync<Assessment>();
+        //    await _db.DeleteAllAsync<Performance>();
+        //    await _db.DeleteAllAsync<Objective>();
+        //    await _db.DeleteAllAsync<Note>();
+        //    await _db.DeleteAllAsync<User>();
+        //    await _db.DeleteAllAsync<StatusDropdown>();
+        //    await _db.DeleteAllAsync<AssessmentTypeDropdown>();
+        //}
+        ////TODO: Delete "Get user count" functionality
         public static async Task<int> GetUserCount()
         {
             await Init();
@@ -552,6 +552,7 @@ namespace SClarkC971PA.Services
             {
                 AssociatedCourseId = course.CourseId,
                 AssessmentName = "Networking PA",
+                AssessmentStatus = "In Progress",
                 PAssessmentFeedback = "You did great!",
                 AssessmentStartDate= DateTime.Today.Date,
                 AssessmentEndDate= DateTime.Today.Date.AddDays(1),
@@ -565,12 +566,13 @@ namespace SClarkC971PA.Services
                 AssociatedCourseId = course.CourseId,
                 AssessmentName = "Networking OA",
                 OAssessmentScore = 100,
+                AssessmentStatus = "Not Started",
                 AssessmentStartDate = DateTime.Today.Date,
                 AssessmentEndDate = DateTime.Today.Date.AddDays(1),
                 AssociatedUserId = currentUserId,
                 AssessmentNotify = true
             };
-            await _db.InsertAsync(performance);
+            await _db.InsertAsync(objective);
 
             Instructor instructor = new Instructor()
             {

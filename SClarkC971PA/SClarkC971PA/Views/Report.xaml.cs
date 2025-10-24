@@ -17,9 +17,22 @@ public partial class Report : ContentPage
 		ReportErrorLbl.Text = "";
 		ReportErrorLbl.IsVisible = false;
 		AssessmentTypePkr.SelectedIndex = 0;
-        AssessmentStatusPkr.SelectedIndex = 0;
-	}
 
+
+    }
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+        AssessmentStatusPkr.ItemsSource = null;
+        var statusTable = await DatabaseService.GetStatusItems();
+        AssessmentStatusPkr.ItemsSource = statusTable.Select(s => s.StatusItem).ToList();
+        AssessmentStatusPkr.SelectedIndex = 0;
+
+        AssessmentTypePkr.ItemsSource = null;
+        var typeTable = await DatabaseService.GetAssessmentTypeItems();
+        AssessmentTypePkr.ItemsSource = typeTable.Select(s => s.TypeItem).ToList();
+        AssessmentTypePkr.SelectedIndex = 0;
+    }
     private async void LoadReportBtn_Clicked(object sender, EventArgs e)
     {
 		if (AssessmentTypePkr.SelectedIndex != -1 && AssessmentStatusPkr.SelectedIndex != -1)

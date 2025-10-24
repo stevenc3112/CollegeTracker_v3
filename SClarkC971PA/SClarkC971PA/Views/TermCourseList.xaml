@@ -22,17 +22,17 @@
             <Grid ColumnDefinitions="*,*,*" Grid.Row="0">
                 <Label x:Name="TermStartLbl"
                    Text="TermStartDate"
-                   FontSize="Small"
+                   FontSize="Large"
                    HorizontalOptions="Center"
                    Grid.Column="0"/>
                 <Label
                    Text="-"
-                   FontSize="Header"
+                   FontSize="Large"
                    HorizontalOptions="Center"
                    Grid.Column="1"/>
                 <Label x:Name="TermEndLbl"
                    Text="TermEndDate"
-                   FontSize="Small"
+                   FontSize="Large"
                    HorizontalOptions="Center"
                    Grid.Column="2"/>
             </Grid>

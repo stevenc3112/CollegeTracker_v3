@@ -19,12 +19,12 @@ public partial class LoginPage : ContentPage
         PasswordEntry.Text = "steven";
         //TODO: Delete the lines for user count
         var userCount = await DatabaseService.GetUserCount();
-        UserCountLbl.Text = userCount.ToString();
+        //UserCountLbl.Text = userCount.ToString();
 
         //Setup page view based on whether the user is signing up or signing in
-        if (await DatabaseService.GetUserCount() == 0)
+        if (userCount == 0)
         {
-            Services.Settings.FirstRun = false;
+            //Services.Settings.FirstRun = false;
 
             Title = "Account Set Up";
             InstructionLbl.Text = "Set up your username and password";
@@ -98,10 +98,10 @@ public partial class LoginPage : ContentPage
 
     }
 
-    private void ClearUserBtn_Clicked(object sender, EventArgs e)
-    {
-        DatabaseService.ClearAllTables();
-    }
+    //private void ClearUserBtn_Clicked(object sender, EventArgs e)
+    //{
+    //    DatabaseService.ClearAllTables();
+    //}
 
     //private void ClearUserBtn_Clicked(object sender, EventArgs e)
     //{

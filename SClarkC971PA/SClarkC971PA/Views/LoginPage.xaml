@@ -12,22 +12,22 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             FontSize="Medium"/>
-        <Label 
+        <!--<Label 
             Text="User count"
             x:Name="UserCountLbl"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             FontSize="Medium"
-            />
+            />-->
         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto" Padding="10">
-            <Label Text="Username:" Grid.Row="0" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Label Text="Username:" Grid.Row="0" HorizontalOptions="Start" FontSize="Medium" VerticalOptions="Center"/>
             <Entry x:Name="UsernameEntry"
                    FontSize="Medium"
                    HorizontalOptions="Fill"
                    BackgroundColor="WhiteSmoke"
                    TextColor="Black"
                    Grid.Row="1"/>
-            <Label Text="Password:" Grid.Row="2" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
+            <Label Text="Password:" Grid.Row="2" HorizontalOptions="Start" FontSize="Medium" VerticalOptions="Center"/>
             <Entry x:Name="PasswordEntry"
                    FontSize="Medium"
                    HorizontalOptions="Fill"
@@ -48,7 +48,7 @@
                     Grid.Row="4"/>
             <Label x:Name="ErrorLbl" Grid.Row="5" HorizontalOptions="Center" FontSize="Medium" VerticalOptions="Center"/>
             <!--TODO: Remove this button-->
-            <Button x:Name="ClearUserBtn"
+            <!--<Button x:Name="ClearUserBtn"
                     Text="Clear All Tables (testing)"
                     FontSize="Medium"
                     Padding="20"
@@ -58,7 +58,7 @@
                     BorderColor="#C8C8C8"
                     TextColor="Black"
                     BorderWidth="1"
-                    Grid.Row="6"/>
+                    Grid.Row="6"/>-->
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
