@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SClarkC971PA.Views.AssessmentEdit">
+    <Position X="12.5" Y="14.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAIgEAAAAACAAAAAAEgAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Views\AssessmentEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.CourseEdit">
+    <Position X="9" Y="11.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAQABAAIwBAAAAAAAEAAAAIgAggIAAAAAAAAAABBA=</HashCode>
+      <FileName>Views\CourseEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.CourseNotesList">
+    <Position X="12.5" Y="11.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAACAAAAAAAABCAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CourseNotesList.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.InstructorEdit">
+    <Position X="12.5" Y="17.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgBAAAAACACAAAAAgAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Views\InstructorEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.LoginPage">
+    <Position X="0.75" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIgAQAAAAAAAAAAAAAAQAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.NoteEdit">
+    <Position X="15.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BABQAAAAAAAAAAAAACAAAAAAAAAACAEAAAAAAAABQAA=</HashCode>
+      <FileName>Views\NoteEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.Report">
+    <Position X="5.75" Y="18" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAMoAAAABAAAAAAAAAAAAAAAAgAAAAAAIAAA=</HashCode>
+      <FileName>Views\Report.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.TermCourseList">
+    <Position X="5.75" Y="11.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAKgAAAAAAAAAICAAAAAAABAAAAAgAAAAAAA=</HashCode>
+      <FileName>Views\TermCourseList.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.TermEdit">
+    <Position X="5.75" Y="15" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAKgAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\TermEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Views.TermList">
+    <Position X="2.75" Y="11.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAIgAAEAIAAAAAAAAAAAAAAgACQAABAAAAAA=</HashCode>
+      <FileName>Views\TermList.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Assessment">
+    <Position X="7" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ECEAJAAAAAAAAAAAICBAAAAAAAEAAAAAhAAYAAAAAAE=</HashCode>
+      <FileName>Models\Assessment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.AssessmentTypeDropdown">
+    <Position X="1" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\AssessmentTypeDropdown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Course">
+    <Position X="5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACEAAYAAEBAQAAAAAoBAAAAAAAgCAAgAAAAAAAEAAA=</HashCode>
+      <FileName>Models\Course.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Instructor">
+    <Position X="7" Y="8" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAABAAABAICAAGAAgACAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Models\Instructor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Note">
+    <Position X="7" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACQAAAAAAIDAAAAAAACAAAAAQAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Note.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Objective">
+    <Position X="9.75" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\Objective.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Performance">
+    <Position X="9.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Performance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.StatusDropdown">
+    <Position X="1" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAA=</HashCode>
+      <FileName>Models\StatusDropdown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.Term">
+    <Position X="3" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAEQAAAIAQAAAABAAAACAAAAAAAQAAEAAAEAAAA=</HashCode>
+      <FileName>Models\Term.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SClarkC971PA.Models.User">
+    <Position X="1" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAgAAAAAAAAIABAAADAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
