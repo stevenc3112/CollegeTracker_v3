@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SClarkC971PA.Services
 {
-    internal static class Validation
+    public static class Validation
     {
         public static bool ValidateDates(DateTime startingDate, DateTime endingDate)
         {
