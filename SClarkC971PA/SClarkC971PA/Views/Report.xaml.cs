@@ -2,6 +2,7 @@
 using SClarkC971PA.Services;
 using SClarkC971PA.Models;
 using System.Runtime.CompilerServices;
+using Microsoft.Maui.Layouts;
 namespace SClarkC971PA.Views;
 
 public partial class Report : ContentPage
@@ -16,6 +17,7 @@ public partial class Report : ContentPage
 		_currentUserId = currentUserId;
 		ReportErrorLbl.Text = "";
 		ReportErrorLbl.IsVisible = false;
+		ReportTitleLbl.IsVisible = false;
 		AssessmentTypePkr.SelectedIndex = 0;
 
 
@@ -45,6 +47,9 @@ public partial class Report : ContentPage
                 AssessmentCollectionView.ItemsSource = _originalReport;
 				ReportErrorLbl.Text = "Report run " + DateTime.Now.ToString("MM/dd/yyyy 'at' hh:mm tt");
 				ReportErrorLbl.IsVisible = true;
+
+				ReportTitleLbl.Text = "Performance Assessments that are " + AssessmentStatusPkr.SelectedItem.ToString();
+                ReportTitleLbl.IsVisible = true;
             }
 			else if (_assessmentType == "Objective")
 			{
@@ -52,6 +57,9 @@ public partial class Report : ContentPage
                 AssessmentCollectionView.ItemsSource = _originalReport;
                 ReportErrorLbl.Text = "Report run " + DateTime.Now.ToString("MM/dd/yyyy 'at' hh:mm tt");
                 ReportErrorLbl.IsVisible = true;
+
+                ReportTitleLbl.Text = "Objective Assessments that are " + AssessmentStatusPkr.SelectedItem.ToString();
+                ReportTitleLbl.IsVisible = true;
             }
 
         }

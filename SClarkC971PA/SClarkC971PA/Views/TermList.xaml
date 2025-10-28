@@ -6,7 +6,7 @@
     <NavigationPage.TitleView>
         <Grid ColumnDefinitions="Auto, *, Auto" Padding="10" VerticalOptions="Center">
 
-            <Label Text="WGU Terms"
+            <Label Text="College Terms"
                FontSize="Title"
                TextColor="Black"
                FontAttributes="Bold"

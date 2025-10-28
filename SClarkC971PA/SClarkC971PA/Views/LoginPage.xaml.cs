@@ -102,11 +102,4 @@ public partial class LoginPage : ContentPage
     //{
     //    DatabaseService.ClearAllTables();
     //}
-
-    //private void ClearUserBtn_Clicked(object sender, EventArgs e)
-    //{
-    //    DatabaseService.ClearUserTable();
-    //}
-
-
 }

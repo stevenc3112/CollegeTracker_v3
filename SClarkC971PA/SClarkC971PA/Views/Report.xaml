@@ -28,7 +28,7 @@
             <Border x:Name="AssessmentCollectionViewBorder" StrokeShape="RoundRectangle 10"
                         Padding="10"
                         BackgroundColor="WhiteSmoke" Grid.Row="1">
-                <Grid RowDefinitions="Auto,Auto,Auto, *, Auto">
+                <Grid RowDefinitions="Auto,Auto,Auto,Auto, *, Auto">
                     
                     <SearchBar Grid.Row="0" 
                         x:Name="ReportSearchBar" 
@@ -47,12 +47,13 @@
                         TextColor="Black"
                         BorderWidth="1"
                         Grid.Row="1"/>
-                    <Label Grid.Row="2" x:Name="ReportErrorLbl"/>
+                    <Label Grid.Row="2" x:Name="ReportTitleLbl" FontSize="Subtitle"/>
+                    <Label Grid.Row="3" x:Name="ReportErrorLbl"/>
                     <CollectionView x:Name="AssessmentCollectionView"
                                     ItemsSource="{Binding Assessment}"
                                     EmptyView="No assessments to display."
                                     SelectionMode="Single"
-                                    Grid.Row="3">
+                                    Grid.Row="4">
 
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
@@ -83,7 +84,7 @@
                         </CollectionView.ItemTemplate>
 
                     </CollectionView>
-                    <Label Grid.Row="4" x:Name="TimestampLbl" Text="" FontSize="Micro" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
+                    <Label Grid.Row="5" x:Name="TimestampLbl" Text="" FontSize="Micro" VerticalTextAlignment="Center" FontAttributes="Bold" HorizontalTextAlignment="Start"/>
                 </Grid>
 
             </Border>

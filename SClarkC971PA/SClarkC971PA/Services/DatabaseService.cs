@@ -127,33 +127,7 @@ namespace SClarkC971PA.Services
             }
         }
 
-        //TODO: Delete the Clear User Table functionality
-        //public static async Task ClearUserTable()
-        //public static async Task ClearAllTables()
-        //{
-        //    await Init();
-        //    //var clearTableCmd = "DELETE FROM User";
-        //    //await _db.ExecuteAsync(clearTableCmd);
 
-        //    //await _db.DeleteAllAsync<User>();
-        //    await _db.DeleteAllAsync<Term>();
-        //    await _db.DeleteAllAsync<Course>();
-        //    await _db.DeleteAllAsync<Instructor>();
-        //    //await _db.DeleteAllAsync<Assessment>();
-        //    await _db.DeleteAllAsync<Performance>();
-        //    await _db.DeleteAllAsync<Objective>();
-        //    await _db.DeleteAllAsync<Note>();
-        //    await _db.DeleteAllAsync<User>();
-        //    await _db.DeleteAllAsync<StatusDropdown>();
-        //    await _db.DeleteAllAsync<AssessmentTypeDropdown>();
-        //}
-        ////TODO: Delete "Get user count" functionality
-        public static async Task<int> GetUserCount()
-        {
-            await Init();
-            int userCount = await _db.ExecuteScalarAsync<int>("Select Count(*) from User");
-            return userCount;
-        }
         #endregion
 
         #region Term Methods
@@ -620,5 +594,32 @@ namespace SClarkC971PA.Services
             await _db.InsertAsync(statusDropdownItem3);
         }
         #endregion
+
+        ////TODO: Delete the Clear User Table functionality
+        //public static async Task ClearAllTables()
+        //{
+        //    await Init();
+        //    //var clearTableCmd = "DELETE FROM User";
+        //    //await _db.ExecuteAsync(clearTableCmd);
+
+        //    await _db.DeleteAllAsync<User>();
+        //    await _db.DeleteAllAsync<Term>();
+        //    await _db.DeleteAllAsync<Course>();
+        //    await _db.DeleteAllAsync<Instructor>();
+        //    //await _db.DeleteAllAsync<Assessment>();
+        //    await _db.DeleteAllAsync<Performance>();
+        //    await _db.DeleteAllAsync<Objective>();
+        //    await _db.DeleteAllAsync<Note>();
+        //    await _db.DeleteAllAsync<User>();
+        //    await _db.DeleteAllAsync<StatusDropdown>();
+        //    await _db.DeleteAllAsync<AssessmentTypeDropdown>();
+        //}
+        //TODO: Delete "Get user count" functionality
+        public static async Task<int> GetUserCount()
+        {
+            await Init();
+            int userCount = await _db.ExecuteScalarAsync<int>("Select Count(*) from User");
+            return userCount;
+        }
     }
 }
