@@ -85,6 +85,7 @@ namespace SClarkC971PA.Services
             return objectiveAssessments;
         }
         #endregion
+
         #region User Methods
         //Get list of users
         public static async Task<IEnumerable<User>> GetUsers()
@@ -504,7 +505,7 @@ namespace SClarkC971PA.Services
             await Init();
             Term term = new Term()
             {
-                TermTitle = "Fall 2030",
+                TermTitle = "Example Term",
                 TermStartDate= DateTime.Today.Date,
                 TermEndDate= DateTime.Today.Date.AddDays(1),
                 AssociatedUserId = currentUserId
@@ -514,7 +515,7 @@ namespace SClarkC971PA.Services
             Course course = new Course()
             {
               AssociatedTermId = term.TermId,
-              CourseName = "Networking",
+              CourseName = "Example Course",
               CourseStartDate=DateTime.Today.Date,
               CourseEndDate=DateTime.Today.Date.AddDays(1),
               CourseStatus="In Progress",
@@ -525,7 +526,7 @@ namespace SClarkC971PA.Services
             Performance performance = new Performance()
             {
                 AssociatedCourseId = course.CourseId,
-                AssessmentName = "Networking PA",
+                AssessmentName = "Example PA",
                 AssessmentStatus = "In Progress",
                 PAssessmentFeedback = "You did great!",
                 AssessmentStartDate= DateTime.Today.Date,
@@ -538,7 +539,7 @@ namespace SClarkC971PA.Services
             Objective objective = new Objective()
             {
                 AssociatedCourseId = course.CourseId,
-                AssessmentName = "Networking OA",
+                AssessmentName = "Example OA",
                 OAssessmentScore = 100,
                 AssessmentStatus = "Not Started",
                 AssessmentStartDate = DateTime.Today.Date,
@@ -551,9 +552,9 @@ namespace SClarkC971PA.Services
             Instructor instructor = new Instructor()
             {
                 AssociatedCourseId= course.CourseId,
-                InstructorName="Anika Patel",
-                InstructorPhone="555-123-4567",
-                InstructorEmail="anika.patel@strimeuniveristy.edu"
+                InstructorName="Mrs Example Instructor",
+                InstructorPhone="123-456-7890",
+                InstructorEmail="example@exampleuniveristy.edu"
             };
             await _db.InsertAsync(instructor);
         }
