@@ -15,8 +15,7 @@ public partial class LoginPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        UsernameEntry.Text = "steven";
-        PasswordEntry.Text = "steven";
+
         //TODO: Delete the lines for user count
         var userCount = await DatabaseService.GetUserCount();
         //UserCountLbl.Text = userCount.ToString();
