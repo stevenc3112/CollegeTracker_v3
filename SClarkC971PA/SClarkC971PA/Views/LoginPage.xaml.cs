@@ -1,7 +1,7 @@
 using SClarkC971PA.Services;
 using SClarkC971PA.Models;
 namespace SClarkC971PA.Views;
-
+//Test that maintenance instructions work
 public partial class LoginPage : ContentPage
 {
     private User _user = new User();
